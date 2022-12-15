@@ -25,17 +25,19 @@ const navigateTo = (url) => {
 };
 
 const router = async () => {
+  const path = location.hash.slice(1).toLocaleLowerCase() || '/';
+
   const routes = [
     { path: '/', view: Home },
 
     { path: '/product-details/:id', view: ProductDetails },
   ];
-
   // Test each route for potential match
   const potentialMatches = routes.map((route) => {
+    const hash = location.hash.slice(1);
     return {
       route: route,
-      result: location.pathname.match(pathToRegex(route.path)),
+      result: hash.match(pathToRegex(route.path)),
     };
   });
 
@@ -51,7 +53,7 @@ const router = async () => {
   }
 
   const view = new match.route.view(getParams(match));
-  console.log(match);
+
   document.querySelector('#root').innerHTML = await view.render();
   await view.executeViewScript();
 };

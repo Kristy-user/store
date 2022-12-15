@@ -29,12 +29,9 @@ class Cards {
       ).textContent = `Stock: ${item.stock} `;
       cardClone.querySelector(
         '.card__link-details'
-      ).href = `/product-details/${item.id}`;
+      ).href = `/#/product-details/${item.id}`;
       fragment.append(cardClone);
     });
-
-    // document.querySelector('.products').innerHTML = '';
-    // document.querySelector('.products').appendChild(fragment);
     return fragment;
   }
 }
