@@ -1,6 +1,6 @@
 import { Home } from '../pages/Home';
 import { ProductDetails } from '../pages/productDetails';
-import { getParams, pathToRegex } from './routerHelpers';
+import RouterHelper from './RouterHelper';
 
 class Router {
   async router() {
@@ -12,7 +12,7 @@ class Router {
       const hash = location.hash.slice(1).toLocaleLowerCase() || '/';
       return {
         route: route,
-        result: hash.match(pathToRegex(route.path)),
+        result: hash.match(RouterHelper.pathToRegex(route.path)),
       };
     });
     let match = potentialMatches.find(
@@ -24,7 +24,7 @@ class Router {
         result: [location.pathname],
       };
     }
-    const view = new match.route.view(getParams(match));
+    const view = new match.route.view(RouterHelper.getParams(match));
     const root = document.querySelector('#root');
     root.innerHTML = await view.render();
     await view.executeViewScript();
