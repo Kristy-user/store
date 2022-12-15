@@ -19,7 +19,6 @@ class ProductDetails extends AbstractView {
   }
   async executeViewScript() {
     const productItem = await this.getItem();
-
     const productItemContainer = document.querySelector('#root .container');
     productItemContainer.append(productItem);
   }
