@@ -15,10 +15,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
   routing.router();
 });
-
-const category = document.querySelector('.category');
-category.addEventListener('change', (e) => {
-  if (e.target.name === 'category') {
-    window.location.hash = `/category=${e.target.value}`;
-  }
-});

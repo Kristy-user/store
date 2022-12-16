@@ -100,6 +100,64 @@ header .container {
 
 #root {
   .products {
+    display: flex;
+  }
+  .products__filter {
+    width: fit-content;
+    .category__box {
+      text-align: left;
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid grey;
+      border-radius: 8px;
+      h3 {
+        margin: 5px 0;
+      }
+      div {
+        margin: 5px 0;
+      }
+      input {
+        padding: 0;
+        height: initial;
+        width: initial;
+        margin-bottom: 0;
+        display: none;
+        cursor: pointer;
+        &:checked + label:after,
+        .checked {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 3px;
+          left: 6px;
+          width: 5px;
+          height: 11px;
+          border: solid #0079bf;
+          border-width: 0 2px 2px 0;
+          transform: rotate(45deg);
+        }
+      }
+      label {
+        position: relative;
+        cursor: pointer;
+        &:before {
+          content: '';
+          -webkit-appearance: none;
+          background-color: transparent;
+          border: 1px solid #7065d9;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+            inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+          padding: 8px;
+          display: inline-block;
+          position: relative;
+          vertical-align: middle;
+          cursor: pointer;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+  .products__wrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 0.75rem;

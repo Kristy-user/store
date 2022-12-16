@@ -28,7 +28,6 @@ class Router {
     }
 
     const view = new match.route.view(RouterHelper.getParams(match));
-    console.log(view);
     const root = document.querySelector('#root');
     root.innerHTML = await view.render();
     await view.executeViewScript();
