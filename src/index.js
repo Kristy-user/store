@@ -12,5 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
       routing.navigateTo(e.target.href);
     }
   });
+
   routing.router();
+});
+
+const category = document.querySelector('.category');
+category.addEventListener('change', (e) => {
+  if (e.target.name === 'category') {
+    window.location.hash = `/category=${e.target.value}`;
+  }
 });

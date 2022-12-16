@@ -1,3 +1,4 @@
+import { FilterView } from '../pages/FilterView';
 import { Home } from '../pages/Home';
 import { ProductDetails } from '../pages/productDetails';
 import RouterHelper from './RouterHelper';
@@ -7,6 +8,7 @@ class Router {
     const routes = [
       { path: '/', view: Home },
       { path: '/product-details/:id', view: ProductDetails },
+      { path: '/category=:name', view: FilterView },
     ];
     const potentialMatches = routes.map((route) => {
       const hash = location.hash.slice(1).toLocaleLowerCase() || '/';
@@ -24,7 +26,9 @@ class Router {
         result: [location.pathname],
       };
     }
+
     const view = new match.route.view(RouterHelper.getParams(match));
+    console.log(view);
     const root = document.querySelector('#root');
     root.innerHTML = await view.render();
     await view.executeViewScript();
