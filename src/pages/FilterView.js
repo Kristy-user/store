@@ -1,6 +1,7 @@
 import Cards from '../components/Cards.js';
 import FilterListener from '../components/FilterListener.js';
 import { AbstractView } from './AbstractView.js';
+import { data } from '../index';
 
 class FilterView extends AbstractView {
   constructor(params) {
@@ -11,10 +12,9 @@ class FilterView extends AbstractView {
   }
   async getCategoryProducts() {
     const category = this.params.name.split('+');
-    const response = await fetch(`https://dummyjson.com/products`);
-    const data = await response.json();
+    const allData = await data
     const productsList = this.productsView.draw(
-      data.products.filter((item) => category.includes(item.category))
+      allData.products.filter((item) => category.includes(item.category))
     );
     return productsList;
   }

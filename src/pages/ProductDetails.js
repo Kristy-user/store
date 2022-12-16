@@ -1,5 +1,6 @@
 import Cards from '../components/Cards';
 import { AbstractView } from './AbstractView';
+import { data } from '../index';
 
 class ProductDetails extends AbstractView {
   constructor(params) {
@@ -9,10 +10,8 @@ class ProductDetails extends AbstractView {
     this.productsView = new Cards();
   }
   async getItem() {
-    const response = await fetch(
-      `https://dummyjson.com/products/${this.productId}`
-    );
-    const data = await response.json();
+    const allData = await data;
+    const item = allData.find(x => x.id === this.productId);
     const productItem = this.productsView.draw([data]);
 
     return productItem;

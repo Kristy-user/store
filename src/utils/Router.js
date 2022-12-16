@@ -2,6 +2,7 @@ import { FilterView } from '../pages/FilterView';
 import { Home } from '../pages/Home';
 import { ProductDetails } from '../pages/productDetails';
 import RouterHelper from './RouterHelper';
+import { data } from '../index';
 
 class Router {
   async router() {

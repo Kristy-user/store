@@ -1,6 +1,8 @@
 import './styles/main.scss';
+import ProductsData from './utils/ProductsData';
 import Router from './utils/Router';
 
+export const data = ProductsData.getData('https://dummyjson.com/products');
 const routing = new Router();
 
 window.addEventListener('popstate', routing.router);
