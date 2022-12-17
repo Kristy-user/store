@@ -11,8 +11,8 @@ class ProductDetails extends AbstractView {
   }
   async getItem() {
     const allData = await data;
-    const item = allData.find(x => x.id === this.productId);
-    const productItem = this.productsView.draw([data]);
+    const item = allData.products.filter(x => x.id === Number(this.productId));
+    const productItem = this.productsView.draw(item);
 
     return productItem;
   }

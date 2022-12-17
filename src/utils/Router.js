@@ -27,7 +27,6 @@ class Router {
         result: [location.pathname],
       };
     }
-
     const view = new match.route.view(RouterHelper.getParams(match));
     const root = document.querySelector('#root');
     root.innerHTML = await view.render();
