@@ -13,7 +13,9 @@ class ProductsFilter extends AbstractView {
     this.listener = new FilterListener();
   }
   async getCategoryProducts() {
+    console.log(this.params);
     const currentFilters = RouterHelper.setFilter(this.params); /// нужно еще написать эту ф-ию
+    console.log(currentFilters);
     const category = [];
     const allData = await data;
     const productsList = this.productsView.draw(

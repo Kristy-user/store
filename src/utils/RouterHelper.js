@@ -1,7 +1,6 @@
 class RouterHelper {
   static checkId = (path) => {
     const pathArray = path.split('/');
-    console.log(pathArray);
     if (pathArray.length !== 2) {
       return false;
     }
@@ -11,6 +10,18 @@ class RouterHelper {
 
   static setFilter = (path) => {
     //// здесь нужна ф-ия для выбора критериев из строки запроса
+    // /#/?category=smartphones+laptop&brand=apple+samsung
+    let filtersString = path.split('?')[1].replace('/', '');
+
+    const filters = {};
+
+    filtersString.split('&').forEach(elem => {
+      const [key, valuesString] = elem.split('=');
+      const values = valuesString.split('+')
+      filters[key] = values;
+    })
+
+    return filters;
   };
 }
 
