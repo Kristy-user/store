@@ -10,6 +10,5 @@ class AbstractView {
   async render() {
     return '';
   }
-  async executeViewScript() {}
 }
 export { AbstractView };

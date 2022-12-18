@@ -110,7 +110,7 @@ header .container {
   }
   .products__filter {
     width: fit-content;
-    .category__box {
+    .filters__box {
       text-align: left;
       padding: 10px;
       margin: 10px;
@@ -199,6 +199,42 @@ header .container {
         background-color: #7065d9;
         padding: 5px;
         border-radius: 3px;
+      }
+    }
+  }
+  .error-page {
+    color: #fff;
+    height: calc(100vh - 146px);
+    overflow: hidden;
+    background: #333641;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    div {
+      background: 50% 100% / 50% 50% no-repeat
+        radial-gradient(ellipse at bottom, #fff, transparent, transparent);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-size: 10vw;
+
+      animation: reveal 3000ms ease-in-out forwards 200ms,
+        glow 2500ms linear infinite 2000ms;
+
+      @keyframes reveal {
+        80% {
+          letter-spacing: 8px;
+        }
+        100% {
+          background-size: 300% 300%;
+        }
+      }
+      @keyframes glow {
+        40% {
+          text-shadow: 0 0 8px #fff;
+        }
       }
     }
   }

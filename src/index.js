@@ -4,7 +4,7 @@ import Router from './utils/Router';
 
 export const data = ProductsData.getData('https://dummyjson.com/products');
 const routing = new Router();
-
+localStorage.removeItem('shop');
 window.addEventListener('popstate', routing.router);
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   routing.router();
 });
 
-document.querySelector('.search__input').addEventListener('input', e => {
+document.querySelector('.search__input').addEventListener('input', (e) => {
   e.preventDefault();
   routing.router();
-})
+});

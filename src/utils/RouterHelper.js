@@ -1,18 +1,16 @@
 class RouterHelper {
-  static pathToRegex = (path) =>
-    new RegExp('^' + path.replace(/\//g, '\\/').replace(/:\w+/g, '(.+)') + '$');
+  static checkId = (path) => {
+    const pathArray = path.split('/');
+    console.log(pathArray);
+    if (pathArray.length !== 2) {
+      return false;
+    }
+    const id = Number(pathArray.slice(-1).join(''));
+    return id;
+  };
 
-  static getParams = (match) => {
-    const values = match.result.slice(1);
-
-    const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map(
-      (result) => result[1]
-    );
-    return Object.fromEntries(
-      keys.map((key, i) => {
-        return [key, values[i]];
-      })
-    );
+  static setFilter = (path) => {
+    //// здесь нужна ф-ия для выбора критериев из строки запроса
   };
 }
 

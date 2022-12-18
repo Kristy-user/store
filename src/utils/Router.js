@@ -1,38 +1,42 @@
-import { FilterView } from '../pages/FilterView';
-import { Home } from '../pages/Home';
+import { ProductsFilter } from '../pages/ProductsFilter/ProductsFilter';
+import { Home } from '../pages/Home/Home.js';
 import { ProductDetails } from '../pages/productDetails';
-import RouterHelper from './RouterHelper';
-import { data } from '../index';
+import Error from '../pages/404';
 
 class Router {
-  async router() {
+  constructor() {
+    this.root = document.querySelector('#root');
+  }
+  router() {
     const routes = [
       { path: '/', view: Home },
-      { path: '/product-details/:id', view: ProductDetails },
-      { path: '/category=:name', view: FilterView },
+      { path: '#product-details', view: ProductDetails },
+      { path: '#?', view: ProductsFilter },
     ];
-    const potentialMatches = routes.map((route) => {
-      const hash = location.hash.slice(1).toLocaleLowerCase() || '/';
-      return {
-        route: route,
-        result: hash.match(RouterHelper.pathToRegex(route.path)),
-      };
-    });
-    let match = potentialMatches.find(
-      (potentialMatch) => potentialMatch.result !== null
-    );
-    if (!match) {
-      match = {
-        route: routes[0],
-        result: [location.pathname],
-      };
-    }
-    const view = new match.route.view(RouterHelper.getParams(match));
-    const root = document.querySelector('#root');
-    root.innerHTML = await view.render();
-    await view.executeViewScript();
-  }
+    const hash = location.hash.toLocaleLowerCase() || '/';
 
+    const isAppRoute = () => {
+      if (hash === '/') {
+        return 0;
+      } else {
+        const hashStart = hash.split('/').slice(0, 1).join('');
+        let matchInd;
+        console.log(hashStart);
+        routes.forEach((route, i) => {
+          if (route.path.startsWith(hashStart)) {
+            matchInd = i;
+          }
+        });
+        return matchInd;
+      }
+    };
+    const pathInd = isAppRoute();
+
+    const view =
+      pathInd >= 0 ? new routes[pathInd].view(hash) : new Error(hash);
+    this.root.innerHTML = '';
+    view.render(this.root);
+  }
   navigateTo(url) {
     history.pushState(null, null, url);
     this.router();
