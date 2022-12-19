@@ -17,7 +17,9 @@ class Home extends AbstractView {
     const productsList = this.productsView.draw(myData.products);
     const productListContainer = document.querySelector('.products__wrapper');
     productListContainer.append(productsList);
-    this.listener.listen();
+    const maxPrice = Math.max(...myData.products.map((item) => item.price));
+    const minPrice = Math.min(...myData.products.map((item) => item.price));
+    this.listener.listen(minPrice, maxPrice);
   }
   async render(root) {
     root.innerHTML = homeRoot;

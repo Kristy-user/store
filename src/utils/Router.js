@@ -21,7 +21,6 @@ class Router {
       } else {
         const hashStart = hash.split('/').slice(0, 1).join('');
         let matchInd;
-        console.log(hashStart);
         routes.forEach((route, i) => {
           if (route.path.startsWith(hashStart)) {
             matchInd = i;
