@@ -1,10 +1,7 @@
 import Cards from '../../components/Cards.js';
-import FilterListener, {
-  filters,
-} from '../../components/Filters/FilterListener.js';
+import FilterListener from '../../components/Filters/FilterListener.js';
 import { AbstractView } from '../AbstractView.js';
 import { data } from '../../index';
-
 import RouterHelper from '../../utils/RouterHelper.js';
 import { homeRoot } from '../Home/htmlData.js';
 
@@ -15,6 +12,8 @@ class ProductsFilter extends AbstractView {
     this.productsView = new Cards();
     this.listener = new FilterListener();
     this.currentFilters = RouterHelper.setFilter(this.params);
+    this.min = '';
+    this.max = '';
   }
   async getCategoryProducts() {
     const allData = await data;
@@ -23,6 +22,8 @@ class ProductsFilter extends AbstractView {
     keys.forEach((key) => {
       return (productsList = productsList.filter((item) => {
         if (key === 'price') {
+          this.min = this.currentFilters[key][0];
+          this.max = this.currentFilters[key][1];
           return (
             item.price >= this.currentFilters[key][0] &&
             item.price <= this.currentFilters[key][1]
@@ -47,13 +48,14 @@ class ProductsFilter extends AbstractView {
     } else {
       const wrapper = document.createElement('div');
       wrapper.classList.add('not__found');
-
       document.querySelector('.products.container').append(wrapper);
     }
-
     const maxPrice = Math.max(...productsList.map((item) => item.price));
     const minPrice = Math.min(...productsList.map((item) => item.price));
-    this.listener.listen(minPrice, maxPrice);
+    this.listener.listen(
+      this.min ? this.min : minPrice,
+      this.max ? this.max : maxPrice
+    );
   }
   async render(root) {
     root.innerHTML = homeRoot;

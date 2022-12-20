@@ -43,18 +43,18 @@ export const homeRoot = `<section class="products container"> <aside class="prod
   <div class="price__content">
         <div class="value-field">
           <label class="price__content-label">Min:</label>
-          <p id="min-value">$50</p>
+          <p id="min-value">$12</p>
         </div>
 
         <div class="value-field">
           <label class="price__content-label">Max:</label>
-          <p id="max-value">$500</p>
+          <p id="max-value">$1749</p>
         </div>
       </div>
 
         <div class="range-slider">
-          <input type="range" class="min-price" value="0" min="0"  max="1749" step="1">
-          <input type="range" class="max-price" value="0 min="0" max="1749" step="1">
+          <input type="range" class="min-price" value="0" min="12"  max="1749" step="1">
+          <input type="range" class="max-price" value="0 min="12" max="1749" step="1">
         </div>
     </div>
   </div>
