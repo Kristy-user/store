@@ -1,4 +1,5 @@
 @import './price-slider.scss';
+@import './basket.scss';
 * {
   padding: 0;
   margin: 0;
@@ -32,6 +33,7 @@ input {
   border: none;
   overflow: visible;
   background-color: inherit;
+  outline: none;
 }
 
 button,
@@ -48,7 +50,7 @@ html {
 }
 
 body {
-  background: #e5e5e5;
+   background: #e5e5e5;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -106,7 +108,7 @@ header .container {
 }
 
 #root {
-  height: calc(100vh - 146px);
+  min-height: calc(100vh - 146px);
   .not__found {
     display: flex;
     flex-direction: column;
