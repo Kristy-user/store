@@ -17,8 +17,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
   routing.router();
 });
-
-document.querySelector('.search__input').addEventListener('input', (e) => {
-  e.preventDefault();
-  routing.router();
-});

@@ -1,4 +1,4 @@
-import { AbstractView } from './AbstractView';
+import { AbstractView } from '../AbstractView';
 
 class Error extends AbstractView {
   constructor(params) {

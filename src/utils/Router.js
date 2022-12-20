@@ -1,7 +1,7 @@
 import { ProductsFilter } from '../pages/ProductsFilter/ProductsFilter';
 import { Home } from '../pages/Home/Home.js';
-import { ProductDetails } from '../pages/productDetails';
-import Error from '../pages/404';
+import { ProductDetails } from '../pages/ProductDetails/ProductDetails';
+import Error from '../pages/404/404';
 
 class Router {
   constructor() {

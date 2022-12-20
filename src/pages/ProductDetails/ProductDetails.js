@@ -1,7 +1,7 @@
-import Cards from '../components/Cards';
-import { AbstractView } from './AbstractView';
-import { data } from '../index';
-import RouterHelper from '../utils/RouterHelper';
+import Cards from '../../components/Cards';
+import { AbstractView } from '../AbstractView';
+import { data } from '../../index';
+import RouterHelper from '../../utils/RouterHelper';
 
 class ProductDetails extends AbstractView {
   constructor(params) {

@@ -9,17 +9,13 @@ class RouterHelper {
   };
 
   static setFilter = (path) => {
-    //// здесь нужна ф-ия для выбора критериев из строки запроса
-    // /#/?category=smartphones+laptop&brand=apple+samsung
-    let filtersString = path.split('?')[1].replace('/', '');
-
+    const filtersString = path.split('?')[1].replace('/', '');
     const filters = {};
-
-    filtersString.split('&').forEach(elem => {
+    filtersString.split('&').forEach((elem) => {
       const [key, valuesString] = elem.split('=');
-      const values = valuesString.split('+')
+      const values = valuesString.split('+');
       filters[key] = values;
-    })
+    });
 
     return filters;
   };

@@ -1,13 +1,14 @@
-import Storage from '../utils/Storage';
-import { listenPrice } from './PriceSlider';
-
+import Storage from '../../utils/Storage';
+import { listenPrice } from './PriceFilterSlider';
+import Search from '../Filters/SearchListener';
 export const filters = ['category', 'brand', 'price', 'stock'];
 
 class FilterListener {
   constructor() {
     this.storage = new Storage('shop');
+    this.search = new Search();
   }
-  listen = (minPrice, maxPrice) => {
+  listen = (minPrice, maxPrice, data) => {
     const filtersBox = document.querySelector('.filters__box');
     filters.forEach((filter) => {
       const currentCheckedCategories = this.storage.get(`${filter}`) || [];
@@ -35,6 +36,7 @@ class FilterListener {
         return (window.location.hash = hash.length === 3 ? '' : hash);
       }
     });
+    this.search.listenSearch();
     listenPrice(minPrice, maxPrice);
   };
   addChecked = (checkedCategory, filter) => {

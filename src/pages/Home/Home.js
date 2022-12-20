@@ -1,5 +1,5 @@
 import Cards from '../../components/Cards.js';
-import FilterListener from '../../components/FilterListener.js';
+import FilterListener from '../../components/Filters/FilterListener.js';
 import { AbstractView } from '../AbstractView.js';
 import { data } from '../../index';
 import { homeRoot } from './htmlData.js';
