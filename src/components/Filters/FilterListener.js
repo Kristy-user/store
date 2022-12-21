@@ -11,12 +11,6 @@ class FilterListener {
   }
   listen = (minPrice, maxPrice) => {
     const filtersBox = document.querySelector('.filters__box');
-    filters.forEach((filter) => {
-      const currentCheckedCategories = this.storage.get(`${filter}`) || [];
-      if (currentCheckedCategories.length > 0) {
-        this.addChecked(currentCheckedCategories, filter);
-      }
-    });
     filtersBox.addEventListener('change', (e) => {
       if (filters.includes(e.target.name)) {
         const allCheckedInputs = document.querySelectorAll(
@@ -37,14 +31,20 @@ class FilterListener {
         return (window.location.hash = hash.length === 3 ? '' : hash);
       }
     });
+
     this.search.listenSearch();
     this.price.listenPrice(minPrice, maxPrice);
   };
-  addChecked = (checkedCategory, filter) => {
-    const inputs = document.querySelectorAll(`[name=${filter}]`);
-    inputs.forEach((input) => {
-      if (checkedCategory.includes(input.value)) {
-        input.checked = true;
+  addChecked = () => {
+    filters.forEach((filter) => {
+      const currentCheckedCategories = this.storage.get(`${filter}`) || [];
+      if (currentCheckedCategories.length > 0) {
+        const inputs = document.querySelectorAll(`[name=${filter}]`);
+        inputs.forEach((input) => {
+          if (currentCheckedCategories.includes(input.value)) {
+            input.checked = true;
+          }
+        });
       }
     });
   };

@@ -1,69 +1,113 @@
 .basket-page {
-    .container {
-        text-align: left;
+  .container {
+    text-align: left;
+  }
+  & .basket__title {
+    margin-top: 30px;
+    font-weight: 500;
+    font-size: 55px;
+  }
+
+  .basket-products {
+    margin-top: 100px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    font-weight: 500;
+    font-size: 20px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 23px;
+  }
+  .basket-list {
+    & .basket-item-container {
+      display: flex;
+      .basket-item-title {
+        max-width: 39%;
+        width: 100%;
+      }
+      .basket-item-price {
+        max-width: 21%;
+        width: 100%;
+      }
+      .basket-item-count {
+        max-width: 20%;
+        width: 100%;
+        display: flex;
+        p {
+          min-width: 20px;
+          text-align: center;
+        }
+        .basket-item-add,
+        .basket-item-remove {
+          cursor: pointer;
+          position: relative;
+          background-color: #6e9c9f;
+          width: 30px;
+          height: 30px;
+          margin: 10px;
+          top: -15px;
+          border-radius: 50%;
+          color: white;
+          &:hover {
+            background-color: #8ecdd0;
+          }
+        }
+      }
+      .basket-item-total {
+        max-width: 10%;
+        width: 100%;
+      }
     }
-    &__title {
-        margin-top: 30px;
-        font-weight: 500;
-        font-size: 55px;
+  }
+  .order {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 50px;
+    font-weight: 500;
+    font-size: 17px;
+
+    .coupon__wrapper {
+      display: flex;
+
+      .coupon {
+        padding: 23px 0;
+        border-bottom: 1px solid #000000;
+        color: #868686;
+        margin-right: 30px;
+      }
+      .coupon-btn {
+        padding: 23px 40px;
+        color: #6e9c9f;
+        cursor: pointer;
+        border: 1px solid #6e9c9f;
+      }
     }
 
-    .basket-products {
-        margin-top: 100px;
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1fr;
-        font-weight: 500;
-        font-size: 20px;
-        padding-bottom: 26px;
-        border-bottom: 1px solid #CCCCCC;
-        margin-bottom: 23px;
-    }
+    .buy__wrapper {
+      display: flex;
+      justify-content: right;
+      align-items: center;
 
-    .order {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        margin-top: 50px;
-        font-weight: 500;
+      .buy__total {
+        text-align: center;
+        background: #f1eadc;
+        padding: 20px;
+        min-width: 150px;
+        & > p {
+          font-weight: 500;
+          font-size: 25px;
+        }
+      }
+
+      .buy__order {
+        margin-left: 30px;
+        padding: 22px 50px;
+        background: #6e9c9f;
+        font-weight: 400;
         font-size: 17px;
-
-        .coupon__wrapper {
-            display: flex;
-
-            .coupon {
-                padding: 23px 0;
-                border-bottom: 1px solid #000000;
-                color: #868686;
-                margin-right: 30px;
-            }
-            .coupon-btn {
-                padding: 23px 40px;
-                color: #6E9C9F;
-                cursor: pointer;
-                border: 1px solid #6E9C9F;
-            }
-        }
-
-        .buy__wrapper {
-            display: flex;
-            justify-content: right;
-            align-items: center;
-
-            .buy__total {
-                background: #F1EADC;
-                padding: 23px 40px;
-                font-weight: 500;
-                font-size: 25px
-            }
-
-            .buy__order {
-                margin-left: 30px;
-                padding: 22px 50px;
-                background: #6E9C9F;
-                font-weight: 400;
-                font-size: 17px;
-                color: white;
-                cursor: pointer;
-            }
-        }
+        color: white;
+        cursor: pointer;
+      }
     }
+  }
 }

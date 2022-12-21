@@ -3,11 +3,9 @@ class Storage {
     this.store = store;
     this.obj = this.getAll();
   }
-
   set(key, value) {
     const data = this.obj;
     data[key] = value;
-
     const newData = JSON.stringify(data);
     localStorage.setItem(this.store, newData);
   }

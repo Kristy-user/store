@@ -1,14 +1,18 @@
-import Cards from '../../components/Cards.js';
+import ProductCards from '../../components/ProductCards.js';
 import FilterListener from '../../components/Filters/FilterListener.js';
 import { AbstractView } from '../AbstractView.js';
 import { data } from '../../index';
 import { homeRoot } from './htmlData.js';
 
+import CartComponent from '../../components/CartComponent.js';
+import Header from '../../components/Header.js';
+
 class Home extends AbstractView {
   constructor(params) {
     super(params);
     this.setTitle('Home');
-    this.productsView = new Cards();
+    this.productsView = new ProductCards();
+    this.cart = new CartComponent();
     this.listener = new FilterListener();
   }
 
@@ -20,6 +24,8 @@ class Home extends AbstractView {
     const maxPrice = Math.max(...myData.products.map((item) => item.price));
     const minPrice = Math.min(...myData.products.map((item) => item.price));
     this.listener.listen(minPrice, maxPrice);
+    this.cart.listenCart(myData.products);
+    Header.listener();
   }
   async render(root) {
     root.innerHTML = homeRoot;

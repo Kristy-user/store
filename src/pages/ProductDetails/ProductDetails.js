@@ -1,4 +1,4 @@
-import Cards from '../../components/Cards';
+import Cards from '../../components/ProductCards';
 import { AbstractView } from '../AbstractView';
 import { data } from '../../index';
 import RouterHelper from '../../utils/RouterHelper';

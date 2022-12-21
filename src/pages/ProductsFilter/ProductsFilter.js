@@ -1,19 +1,22 @@
-import Cards from '../../components/Cards.js';
+import ProductCards from '../../components/ProductCards.js';
 import FilterListener from '../../components/Filters/FilterListener.js';
 import { AbstractView } from '../AbstractView.js';
 import { data } from '../../index';
 import RouterHelper from '../../utils/RouterHelper.js';
 import { homeRoot } from '../Home/htmlData.js';
+import Header from '../../components/Header.js';
+import CartComponent from '../../components/CartComponent.js';
 
 class ProductsFilter extends AbstractView {
   constructor(params) {
     super(params);
     this.setTitle('Home');
-    this.productsView = new Cards();
+    this.productsView = new ProductCards();
     this.listener = new FilterListener();
     this.currentFilters = RouterHelper.setFilter(this.params);
     this.min = '';
     this.max = '';
+    this.cart = new CartComponent();
   }
   async getCategoryProducts() {
     const allData = await data;
@@ -56,6 +59,10 @@ class ProductsFilter extends AbstractView {
       this.min ? this.min : minPrice,
       this.max ? this.max : maxPrice
     );
+    this.listener.addChecked();
+    this.cart.listenCart(productsList);
+
+    Header.listener();
   }
   async render(root) {
     root.innerHTML = homeRoot;

@@ -2,6 +2,7 @@ import { ProductsFilter } from '../pages/ProductsFilter/ProductsFilter';
 import { Home } from '../pages/Home/Home.js';
 import { ProductDetails } from '../pages/ProductDetails/ProductDetails';
 import Error from '../pages/404/404';
+import { Cart } from '../pages/Basket/Cart';
 
 class Router {
   constructor() {
@@ -12,6 +13,7 @@ class Router {
       { path: '/', view: Home },
       { path: '#product-details', view: ProductDetails },
       { path: '#?', view: ProductsFilter },
+      { path: '#cart', view: Cart },
     ];
     const hash = location.hash.toLocaleLowerCase() || '/';
 
