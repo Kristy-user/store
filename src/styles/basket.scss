@@ -1,0 +1,69 @@
+.basket-page {
+    .container {
+        text-align: left;
+    }
+    &__title {
+        margin-top: 30px;
+        font-weight: 500;
+        font-size: 55px;
+    }
+
+    .basket-products {
+        margin-top: 100px;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        font-weight: 500;
+        font-size: 20px;
+        padding-bottom: 26px;
+        border-bottom: 1px solid #CCCCCC;
+        margin-bottom: 23px;
+    }
+
+    .order {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 50px;
+        font-weight: 500;
+        font-size: 17px;
+
+        .coupon__wrapper {
+            display: flex;
+
+            .coupon {
+                padding: 23px 0;
+                border-bottom: 1px solid #000000;
+                color: #868686;
+                margin-right: 30px;
+            }
+            .coupon-btn {
+                padding: 23px 40px;
+                color: #6E9C9F;
+                cursor: pointer;
+                border: 1px solid #6E9C9F;
+            }
+        }
+
+        .buy__wrapper {
+            display: flex;
+            justify-content: right;
+            align-items: center;
+
+            .buy__total {
+                background: #F1EADC;
+                padding: 23px 40px;
+                font-weight: 500;
+                font-size: 25px
+            }
+
+            .buy__order {
+                margin-left: 30px;
+                padding: 22px 50px;
+                background: #6E9C9F;
+                font-weight: 400;
+                font-size: 17px;
+                color: white;
+                cursor: pointer;
+            }
+        }
+    }
+}
