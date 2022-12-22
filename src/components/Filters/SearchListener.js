@@ -1,8 +1,8 @@
 export default class Search {
-  listenSearch(data) {
+  listenSearch() {
     document.querySelector('.search__input').addEventListener('input', (e) => {
       e.preventDefault();
-      this.changeHash(e.target.value.toLowerCase(), data);
+      this.changeHash(e.target.value.toLowerCase());
     });
   }
   changeHash(text) {

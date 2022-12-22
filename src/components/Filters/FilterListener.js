@@ -2,6 +2,7 @@ import Storage from '../../utils/Storage';
 import PriceFilterListener, { listenPrice } from './PriceFilterSlider';
 import Search from '../Filters/SearchListener';
 import StockFilterListener from './StockFilterSlider';
+import Sort from '../Sort/Sort';
 
 class FilterListener {
   constructor() {
@@ -10,6 +11,7 @@ class FilterListener {
     this.search = new Search();
     this.price = new PriceFilterListener();
     this.stock = new StockFilterListener();
+    this.sort = new Sort();
   }
   listen = (minPrice, maxPrice, minStock, maxStock) => {
     const filtersBox = document.querySelector('.filters__box');
@@ -54,6 +56,7 @@ class FilterListener {
     this.search.listenSearch();
     this.price.listenPrice(minPrice, maxPrice);
     this.stock.listenStock(minStock, maxStock);
+    this.sort.listen();
   };
   addChecked = () => {
     this.filters.forEach((filter) => {

@@ -18,8 +18,14 @@ export default class StockFilterListener {
     const maxStockInput = document.querySelector('.max-stock');
     const minValue = document.getElementById('min-value-stock');
     const maxValue = document.getElementById('max-value-stock');
-    minValue.innerHTML = minStock;
-    maxValue.innerHTML = maxStock;
+    if (minStock === Infinity || minStock === -Infinity) {
+      minValue.innerHTML = '—';
+      maxValue.innerHTML = '—';
+    } else {
+      minValue.innerHTML = minStock;
+      maxValue.innerHTML = maxStock;
+    }
+
     minStockInput.value = minStock;
     maxStockInput.value = maxStock;
   }
@@ -50,7 +56,7 @@ export default class StockFilterListener {
           parseInt(inputElements[0].value) > parseInt(inputElements[1].value)
             ? parseInt(inputElements[0].value)
             : parseInt(inputElements[1].value);
-        this.validateRange(minStock, maxStock);
+        this.changeHash(minStock, maxStock, e.target.value);
       });
     });
   }

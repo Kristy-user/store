@@ -32,12 +32,17 @@ class Router {
       }
     };
     const pathInd = isAppRoute();
-
     const view =
       pathInd >= 0 ? new routes[pathInd].view(hash) : new Error(hash);
-    this.root.innerHTML = '';
-    view.render(this.root);
+    if ((pathInd === 0 || pathInd === 2) && hash.length > 3 && root.innerHTML) {
+      document.querySelector('.products-items').innerHTML = '';
+      view.afterRootRender();
+    } else {
+      this.root.innerHTML = '';
+      view.render(this.root);
+    }
   }
+
   navigateTo(url) {
     history.pushState(null, null, url);
     this.router();

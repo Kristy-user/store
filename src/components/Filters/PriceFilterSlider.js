@@ -18,8 +18,13 @@ export default class PriceFilterListener {
     const maxPriceInput = document.querySelector('.max-price');
     const minValue = document.getElementById('min-value-price');
     const maxValue = document.getElementById('max-value-price');
-    minValue.innerHTML = '$' + minPrice;
-    maxValue.innerHTML = '$' + maxPrice;
+    if (minPrice === Infinity || minPrice === -Infinity) {
+      minValue.innerHTML = '—';
+      maxValue.innerHTML = '—';
+    } else {
+      minValue.innerHTML = '$' + minPrice;
+      maxValue.innerHTML = '$' + maxPrice;
+    }
     minPriceInput.value = minPrice;
     maxPriceInput.value = maxPrice;
   }
@@ -50,7 +55,7 @@ export default class PriceFilterListener {
           parseInt(inputElements[0].value) > parseInt(inputElements[1].value)
             ? parseInt(inputElements[0].value)
             : parseInt(inputElements[1].value);
-        this.validateRange(minPrice, maxPrice);
+        this.changeHash(minPrice, maxPrice, e.target.value);
       });
     });
   }
