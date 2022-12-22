@@ -23,7 +23,10 @@ class Home extends AbstractView {
     productListContainer.append(productsList);
     const maxPrice = Math.max(...myData.products.map((item) => item.price));
     const minPrice = Math.min(...myData.products.map((item) => item.price));
-    this.listener.listen(minPrice, maxPrice);
+    const maxStock = Math.max(...myData.products.map((item) => item.stock));
+    const minStock = Math.min(...myData.products.map((item) => item.stock));
+    this.listener.listen(minPrice, maxPrice, minStock, maxStock);
+    this.listener.clearFilters();
     this.cart.listenCart(myData.products);
     Header.listener();
   }

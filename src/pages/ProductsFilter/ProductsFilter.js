@@ -14,8 +14,10 @@ class ProductsFilter extends AbstractView {
     this.productsView = new ProductCards();
     this.listener = new FilterListener();
     this.currentFilters = RouterHelper.setFilter(this.params);
-    this.min = '';
-    this.max = '';
+    this.minPrice = '';
+    this.maxPrice = '';
+    this.minStock = '';
+    this.maxStock = '';
     this.cart = new CartComponent();
   }
   async getCategoryProducts() {
@@ -25,11 +27,18 @@ class ProductsFilter extends AbstractView {
     keys.forEach((key) => {
       return (productsList = productsList.filter((item) => {
         if (key === 'price') {
-          this.min = this.currentFilters[key][0];
-          this.max = this.currentFilters[key][1];
+          this.minPrice = this.currentFilters[key][0];
+          this.maxPrice = this.currentFilters[key][1];
           return (
             item.price >= this.currentFilters[key][0] &&
             item.price <= this.currentFilters[key][1]
+          );
+        } else if (key === 'stock') {
+          this.minStock = this.currentFilters[key][0];
+          this.maxStock = this.currentFilters[key][1];
+          return (
+            item.stock >= this.currentFilters[key][0] &&
+            item.stock <= this.currentFilters[key][1]
           );
         } else if (key === 'search') {
           return (
@@ -55,9 +64,13 @@ class ProductsFilter extends AbstractView {
     }
     const maxPrice = Math.max(...productsList.map((item) => item.price));
     const minPrice = Math.min(...productsList.map((item) => item.price));
+    const maxStock = Math.max(...productsList.map((item) => item.stock));
+    const minStock = Math.min(...productsList.map((item) => item.stock));
     this.listener.listen(
-      this.min ? this.min : minPrice,
-      this.max ? this.max : maxPrice
+      this.minPrice ? this.minPrice : minPrice,
+      this.maxPrice ? this.maxPrice : maxPrice,
+      this.minStock ? this.minStock : minStock,
+      this.maxStock ? this.maxStock : maxStock
     );
     this.listener.addChecked();
     this.cart.listenCart(productsList);
