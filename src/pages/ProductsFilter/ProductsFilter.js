@@ -54,13 +54,13 @@ class ProductsFilter extends AbstractView {
   async afterRootRender() {
     const productsList = await this.getCategoryProducts();
     const productsElement = this.productsView.draw(productsList);
-    const productListContainer = document.querySelector('.products__wrapper');
+    const productListContainer = document.querySelector('.products-items');
     if (productsElement) {
       productListContainer.append(productsElement);
     } else {
       const wrapper = document.createElement('div');
       wrapper.classList.add('not__found');
-      document.querySelector('.products.container').append(wrapper);
+      document.querySelector('.products-items').append(wrapper);
     }
     const maxPrice = Math.max(...productsList.map((item) => item.price));
     const minPrice = Math.min(...productsList.map((item) => item.price));
@@ -74,9 +74,9 @@ class ProductsFilter extends AbstractView {
     );
     this.listener.addChecked();
     this.cart.listenCart(productsList);
-
     Header.listener();
   }
+
   async render(root) {
     root.innerHTML = homeRoot;
     await this.afterRootRender();

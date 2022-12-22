@@ -91,12 +91,40 @@ export const homeRoot = `<section class="products container">
         step="1">
       </div>
       <div id="remove">
-     <button class ="filters__box-remove">Remove all filters
-    </button>
-  </div>
-  </div>
+        <button class="filters__box-remove">Remove all filters</button>
+      </div>
+    </div>
   </div>
 </aside>
-<div class="products__wrapper"></div>
+<div class="products__wrapper">
+<div class="sort-products">  
+<div class="sort-bar">
+<div class="select">
+<input type="select-text" id="input" readonly placeholder="Sort options:">
+</div>
+<div class="option-container">
+<div class="option">
+    <label> Sort by price ASC </label>
+</div>
+<div class="option">
+    <label>Sort by price DESC</label>
+</div>
+<div class="option">
+    <label>Sort by rating ASC</label>
+</div>
+<div class="option">
+    <label>Sort by rating DESC</label>
+</div>
+
+</div>
+</div>
+<div class="stat">Found: 4</div>
+<div class="search-bar"><form class="search">
+<input class="search__input" type="search" placeholder="Search.." /> </form>
+</div>
+<div  class="view-mode"></div>
+</div>
+ <div class="products-items"></div>
+</div>
 </section>
 `;
