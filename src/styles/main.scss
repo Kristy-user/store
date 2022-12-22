@@ -129,9 +129,9 @@ header .container {
       text-align: left;
       padding: 10px;
       margin: 10px;
-      border: 1px solid #476466;
-      border-radius: 8px;
-
+      margin-right: 30px;
+      border: 1px solid #cccccc;
+      background: #fff;
       & > div {
         margin: 20px auto;
         & > div {
@@ -191,7 +191,7 @@ header .container {
 
         .filters__box-remove {
           background-color: #6e9c9f;
-          border-radius: 8px;
+
           padding: 22px;
           font-weight: 400;
           font-size: 17px;
@@ -208,38 +208,41 @@ header .container {
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 0.8rem;
     justify-content: center;
-    box-shadow: 0px 0px 20px rgba(0, 55, 255, 0.25);
+    // border-radius: 6px;
+    // box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
     .card__item {
-      border: 1px solid black;
+      // border: 1px solid #cccccc;
       display: flex;
+      margin-bottom: 13px;
       flex-direction: column;
-      border-radius: 6px;
-      box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+      // border-radius: 6px;
+      &:hover {
+        box-shadow: rgba(110, 156, 159, 0.74) 0px 2px 8px 0px;
+        cursor: pointer;
+      }
 
       .card__body {
-        width: 230px;
+        width: 300px;
         display: flex;
         align-items: center;
         flex-direction: column;
 
-        &-title {
+        & .card__body-title {
           font-size: 22px;
-          margin-top: 6px;
+          margin: 15px 0;
         }
 
         & .card__body-photo {
           margin-top: 10px;
           width: 90%;
           height: 180px;
-          border-radius: 12px;
           object-fit: cover;
-          border: 1px solid #D1D1D1;
-
-          background-size: cover;
+          border: 1px solid #d1d1d1;
+          background-size: contain;
           background-position: center;
           transition: transform 0.2s;
         }
@@ -266,14 +269,12 @@ header .container {
       .card__link-details,
       .card__buttons-add {
         margin: 10px 0;
-        background: #37c79c;
+        background: #6e9c9f;
         color: white;
-        border-radius: 5px;
         padding: 10px 20px;
-        border-radius: 12px;
         cursor: pointer;
         &:hover {
-          background-color: #2b866b;
+          background-color: #509498;
         }
       }
     }

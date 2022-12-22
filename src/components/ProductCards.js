@@ -1,6 +1,5 @@
 class ProductCards {
   draw(data) {
-    console.log(data);
     const products = data;
     const fragment = document.createDocumentFragment();
     const cardItemTemp = document.querySelector('#cardTemplate');
@@ -10,11 +9,9 @@ class ProductCards {
         // cardClone.querySelector(
         //   '.card__body-photo'
         // ).style.backgroundImage = `url(${item.thumbnail})`;
-        cardClone.querySelector(
-          '.card__body-photo'
-        ).src = item.thumbnail;
-        cardClone.querySelector('.card__body-title').textContent = item.title.length > 15
-        ? item.title.slice(0, 15) + '..' : item.title;
+        cardClone.querySelector('.card__body-photo').src = item.thumbnail;
+        cardClone.querySelector('.card__body-title').textContent =
+          item.title.length > 15 ? item.title.slice(0, 15) + '..' : item.title;
         // cardClone.querySelector(
         //   '.list__item-category'
         // ).textContent = `Category ${item.category}`;

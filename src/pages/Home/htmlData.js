@@ -100,7 +100,7 @@ export const homeRoot = `<section class="products container">
 <div class="sort-products">  
 <div class="sort-bar">
 <div class="select">
-<input type="select-text" id="input" readonly placeholder="Sort options:">
+<input type="select-text" id="input" placeholder="select">
 </div>
 <div class="option-container">
 <div class="option">
@@ -118,11 +118,13 @@ export const homeRoot = `<section class="products container">
 
 </div>
 </div>
-<div class="stat">Found: 4</div>
-<div class="search-bar"><form class="search">
-<input class="search__input" type="search" placeholder="Search.." /> </form>
+
+<div class="stat"><p>Found: 4</p></div>
+<div class="search-bar">
+<input class="search__input" type="search" placeholder="Search.." />
 </div>
-<div  class="view-mode"></div>
+<div class="view-mode">
+<div class="view-mode-three"></div><div class="view-mode-two"></div></div>
 </div>
  <div class="products-items"></div>
 </div>
