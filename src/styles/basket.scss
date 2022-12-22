@@ -12,14 +12,21 @@
     margin-top: 100px;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr;
-    font-weight: 500;
-    font-size: 20px;
+
     padding-bottom: 26px;
     border-bottom: 1px solid #cccccc;
     margin-bottom: 23px;
+    h4 {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 28px;
+    }
   }
   .basket-list {
     & .basket-item-container {
+      font-weight: 500;
+      font-size: 17px;
+      line-height: 23.8px;
       display: flex;
       .basket-item-title {
         max-width: 39%;
@@ -49,7 +56,7 @@
           border-radius: 50%;
           color: white;
           &:hover {
-            background-color: #8ecdd0;
+            background-color: #509498;
           }
         }
       }
@@ -80,6 +87,10 @@
         color: #6e9c9f;
         cursor: pointer;
         border: 1px solid #6e9c9f;
+        &:hover {
+          color: #509498;
+          border-color: #509498;
+        }
       }
     }
 
@@ -87,13 +98,15 @@
       display: flex;
       justify-content: right;
       align-items: center;
-
+      width: 100%;
       .buy__total {
         text-align: center;
         background: #f1eadc;
-        padding: 20px;
-        min-width: 150px;
+        padding: 16px;
+        min-width: fit-content;
+
         & > p {
+          display: inline-block;
           font-weight: 500;
           font-size: 25px;
         }
@@ -107,6 +120,9 @@
         font-size: 17px;
         color: white;
         cursor: pointer;
+        &:hover {
+          background-color: #509498;
+        }
       }
     }
   }

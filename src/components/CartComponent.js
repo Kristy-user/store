@@ -19,7 +19,6 @@ export default class CartComponent {
         this.cartData.forEach((item) => {
           if (item.id === currentId && item.stock >= item.count + 1) {
             item.count += 1;
-            console.log(this.cartData);
           }
         });
         if (
@@ -28,7 +27,6 @@ export default class CartComponent {
         ) {
           checkedProduct.count = 1;
           this.cartData.push(checkedProduct);
-          console.log(this.cartData);
         }
         this.storage.set('cart', this.cartData);
         this.setCurrentAmountHeader();
@@ -52,7 +50,7 @@ export default class CartComponent {
         this.cartData.forEach((item) => {
           if (item.id === currentId && item.count > 1) {
             item.count -= 1;
-          } else if (item.count === 1) {
+          } else if (item.id === currentId && item.count === 1) {
             this.cartData = this.cartData.filter((prod) => prod.id !== item.id);
           }
           this.storage.set('cart', this.cartData);
