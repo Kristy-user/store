@@ -99,5 +99,24 @@
     }
   }
 }
-.search-bar {
+.stat {
+  margin-left: 280px;
+}
+.view-mode {
+  display: flex;
+
+  div {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    &:hover {
+      filter: drop-shadow(2px 3px 5px #6e9c9f);
+    }
+  }
+  & .view-mode-three {
+    background: url('../assets/drag-indicator.svg') center no-repeat;
+  }
+  & .view-mode-two {
+    background: url('../assets/apps.svg') center no-repeat;
+  }
 }
