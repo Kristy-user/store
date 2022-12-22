@@ -54,11 +54,11 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-family: 'Raleway';
+  font-family: 'Lora', serif;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: auto;
   text-align: center;
   padding: 10px;
@@ -125,6 +125,7 @@ header .container {
 
   .products {
     display: flex;
+    justify-content: center;
   }
   .products__filter {
     width: fit-content;
@@ -195,6 +196,7 @@ header .container {
 
         .filters__box-remove {
           background-color: #6e9c9f;
+          border-radius: 8px;
           padding: 22px;
           font-weight: 400;
           font-size: 17px;
@@ -210,21 +212,35 @@ header .container {
   .products__wrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 0.75rem;
+    grid-gap: 0.8rem;
     justify-content: center;
+    box-shadow: 0px 0px 20px rgba(0, 55, 255, 0.25);
 
     .card__item {
       border: 1px solid black;
-      display: grid;
-      grid-auto-flow: row;
+      display: flex;
+      flex-direction: column;
+      border-radius: 6px;
+      box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
 
       .card__body {
-        position: relative;
+        width: 230px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
 
-        width: 200px;
+        &-title {
+          font-size: 22px;
+          margin-top: 6px;
+        }
 
         & .card__body-photo {
-          height: 200px;
+          margin-top: 10px;
+          width: 90%;
+          height: 180px;
+          border-radius: 12px;
+          object-fit: cover;
+          border: 1px solid #D1D1D1;
 
           background-size: cover;
           background-position: center;
@@ -233,19 +249,34 @@ header .container {
       }
 
       .card__description {
-        position: absolute;
         background-color: #e5e5e5b6;
         text-align: left;
+        margin-left: 20px;
+      }
+
+      .list__item-brand {
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+
+      .list__item-price {
+        margin-top: 10px;
+        font-size: 24px;
+        font-weight: 700;
       }
 
       .card__link-details,
       .card__buttons-add {
-        background-color: #6e9c9f;
-        padding: 5px;
-        border-radius: 3px;
+        margin: 10px 0;
+        background: #37c79c;
+        color: white;
+        border-radius: 5px;
+        padding: 10px 20px;
+        border-radius: 12px;
         cursor: pointer;
         &:hover {
-          background-color: #509498;
+          background-color: #2b866b;
         }
       }
     }
