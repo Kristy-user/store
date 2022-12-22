@@ -16,8 +16,8 @@ export default class PriceFilterListener {
   validateRange(minPrice, maxPrice) {
     const minPriceInput = document.querySelector('.min-price');
     const maxPriceInput = document.querySelector('.max-price');
-    const minValue = document.getElementById('min-value');
-    const maxValue = document.getElementById('max-value');
+    const minValue = document.getElementById('min-value-price');
+    const maxValue = document.getElementById('max-value-price');
     minValue.innerHTML = '$' + minPrice;
     maxValue.innerHTML = '$' + maxPrice;
     minPriceInput.value = minPrice;
@@ -26,7 +26,9 @@ export default class PriceFilterListener {
 
   listenPrice(minPrice, maxPrice) {
     this.validateRange(minPrice, maxPrice);
-    const inputElements = document.querySelectorAll('input[type="range"]');
+    const inputElements = document.querySelectorAll(
+      '#price input[type="range"]'
+    );
     inputElements.forEach((input) => {
       input.addEventListener('change', (e) => {
         const minPrice =
@@ -40,7 +42,6 @@ export default class PriceFilterListener {
         this.changeHash(minPrice, maxPrice, e.target.value);
       });
       input.addEventListener('input', (e) => {
-        console.log(e.target.value);
         const minPrice =
           parseInt(inputElements[0].value) < parseInt(inputElements[1].value)
             ? parseInt(inputElements[0].value)

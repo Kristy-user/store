@@ -12,6 +12,11 @@ class Storage {
   get(key) {
     return this.obj[key];
   }
+  drop(key) {
+    this.obj[key] && this.obj[key].length > 0
+      ? (this.obj[key].length = 0)
+      : this.obj[key];
+  }
   getAll() {
     const data = localStorage.getItem(this.store);
     return data ? JSON.parse(data) : {};
