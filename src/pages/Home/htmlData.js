@@ -100,7 +100,7 @@ export const homeRoot = `<section class="products container">
 <div class="sort-products">  
 <div class="sort-bar">
 <div class="select">
-<input type="select-text" id="input" placeholder="select">
+<input type="select-text" id="input" placeholder="Sort options">
 </div>
 <div class="option-container">
 <div class="option">
