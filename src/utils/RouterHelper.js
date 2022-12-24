@@ -9,15 +9,18 @@ class RouterHelper {
   };
 
   static setFilter = (path) => {
-    const filtersString = path.split('?')[1].replace('/', '');
-    const filters = {};
-    filtersString.split('&').forEach((elem) => {
-      const [key, valuesString] = elem.split('=');
-      const values = valuesString.split('+');
-      filters[key] = values;
-    });
+    if (path) {
+      const filtersString = path.split('?')[1].replace('/', '');
+      const filters = {};
+      filtersString.split('&').forEach((elem) => {
+        const [key, valuesString] = elem.split('=');
+        const values = valuesString.split('+');
+        filters[key] = values;
+      });
 
-    return filters;
+      return filters;
+    }
+    return {};
   };
 }
 

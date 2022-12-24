@@ -1,8 +1,9 @@
 import Storage from '../../utils/Storage';
-import PriceFilterListener, { listenPrice } from './PriceFilterSlider';
+import PriceFilterListener from './PriceFilterSlider';
 import Search from '../Filters/SearchListener';
 import StockFilterListener from './StockFilterSlider';
 import Sort from '../Sort/Sort';
+import RouterHelper from '../../utils/RouterHelper';
 
 class FilterListener {
   constructor() {
@@ -13,7 +14,7 @@ class FilterListener {
     this.stock = new StockFilterListener();
     this.sort = new Sort();
   }
-  listen = (minPrice, maxPrice, minStock, maxStock) => {
+  listen = (minPrice, maxPrice, minStock, maxStock, count) => {
     const filtersBox = document.querySelector('.filters__box');
     filtersBox.addEventListener('change', (e) => {
       if (this.filters.includes(e.target.name)) {
@@ -43,6 +44,7 @@ class FilterListener {
         });
         hashToAdd.forEach((item) => (hash += `&${item}`));
         hash[3] === '&' ? (hash = hash.replace('&', '')) : hash;
+
         return (window.location.hash = hash.length === 3 ? '' : hash);
       }
     });
@@ -56,15 +58,15 @@ class FilterListener {
     this.search.listenSearch();
     this.price.listenPrice(minPrice, maxPrice);
     this.stock.listenStock(minStock, maxStock);
-    this.sort.listen();
+    this.sort.listen(count);
   };
   addChecked = () => {
+    let currentFilters = RouterHelper.setFilter(location.hash);
     this.filters.forEach((filter) => {
-      const currentCheckedCategories = this.storage.get(`${filter}`) || [];
-      if (currentCheckedCategories.length > 0) {
+      if (currentFilters[filter]) {
         const inputs = document.querySelectorAll(`[name=${filter}]`);
         inputs.forEach((input) => {
-          if (currentCheckedCategories.includes(input.value)) {
+          if (currentFilters[filter].includes(input.value)) {
             input.checked = true;
           }
         });

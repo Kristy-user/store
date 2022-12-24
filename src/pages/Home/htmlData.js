@@ -100,31 +100,31 @@ export const homeRoot = `<section class="products container">
 <div class="sort-products">  
 <div class="sort-bar">
 <div class="select">
-<input type="select-text" id="input" placeholder="Sort options">
+<input type="select-text" id="input" readonly placeholder="Sort options">
 </div>
 <div class="option-container">
-<div class="option">
-    <label> Sort by price ASC </label>
+<div class="option" id = "price-ASC">
+    <label > Sort by price ASC </label>
 </div>
-<div class="option">
+<div class="option" id = "price-DESC">
     <label>Sort by price DESC</label>
 </div>
-<div class="option">
+<div class="option" id = "rating-ASC">
     <label>Sort by rating ASC</label>
 </div>
-<div class="option">
+<div class="option" id = "rating-DESC">
     <label>Sort by rating DESC</label>
 </div>
 
 </div>
 </div>
 
-<div class="stat"><p>Found: 4</p></div>
+<div class="stat"><p>Found:&nbsp;&nbsp;</p><p class="stat-count">4</p></div>
 <div class="search-bar">
 <input class="search__input" type="search" placeholder="Search.." />
 </div>
 <div class="view-mode">
-<div class="view-mode-three"></div><div class="view-mode-two"></div></div>
+<div class="three active"></div><div class="two"></div></div>
 </div>
  <div class="products-items"></div>
 </div>

@@ -24,8 +24,9 @@ class ProductsFilter extends AbstractView {
     const allData = await data;
     let keys = Object.keys(this.currentFilters);
     let productsList = allData.products;
+
     keys.forEach((key) => {
-      return (productsList = productsList.filter((item) => {
+      productsList = productsList.filter((item) => {
         if (key === 'price') {
           this.minPrice = this.currentFilters[key][0];
           this.maxPrice = this.currentFilters[key][1];
@@ -45,10 +46,18 @@ class ProductsFilter extends AbstractView {
             item.title.toLowerCase().includes(this.currentFilters[key][0]) ||
             item.description.toLowerCase().includes(this.currentFilters[key][0])
           );
-        } else
-          return this.currentFilters[key].includes(item[key].toLowerCase());
-      }));
+        } else if (key === 'sort') {
+          return item;
+        } else if (key === 'view') {
+          return item;
+        }
+        return this.currentFilters[key].includes(item[key].toLowerCase());
+      });
+      if (key === 'sort') {
+        this.sortData(productsList);
+      }
     });
+
     return productsList;
   }
   async afterRootRender() {
@@ -70,7 +79,8 @@ class ProductsFilter extends AbstractView {
       this.minPrice ? this.minPrice : minPrice,
       this.maxPrice ? this.maxPrice : maxPrice,
       this.minStock ? this.minStock : minStock,
-      this.maxStock ? this.maxStock : maxStock
+      this.maxStock ? this.maxStock : maxStock,
+      productsList.length
     );
     this.listener.addChecked();
     this.cart.listenCart(productsList);
@@ -80,6 +90,24 @@ class ProductsFilter extends AbstractView {
   async render(root) {
     root.innerHTML = homeRoot;
     await this.afterRootRender();
+  }
+  sortData(data) {
+    switch (this.currentFilters['sort'][0]) {
+      case 'price-asc':
+        data = data.sort((a, b) => Number(a.price) - Number(b.price));
+        break;
+      case 'price-desc':
+        data = data.sort((a, b) => Number(b.price) - Number(a.price));
+        break;
+      case 'rating-asc':
+        data = data.sort((a, b) => Number(a.rating) - Number(b.rating));
+        break;
+      case 'rating-desc':
+        data = data.sort((a, b) => Number(b.rating) - Number(a.rating));
+        break;
+      default:
+        break;
+    }
   }
 }
 export { ProductsFilter };

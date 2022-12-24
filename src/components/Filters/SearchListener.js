@@ -8,9 +8,11 @@ export default class Search {
   changeHash(text) {
     const currentHash = location.hash;
     if (!currentHash || currentHash.slice(3, 9) === 'search') {
-      window.location.hash = `#?/search=${text}`;
+      text.length > 0
+        ? (window.location.hash = `#?/search=${text}`)
+        : (window.location.hash = '');
     } else {
-      const hash = `&search=${text}`;
+      const hash = text.length > 0 ? `&search=${text}` : '';
       window.location.hash = `${currentHash
         .split('&')
         .filter((item) => item.slice(0, 6) !== 'search')

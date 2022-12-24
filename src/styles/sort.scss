@@ -12,7 +12,7 @@
   }
   .sort-bar {
     position: absolute;
-    width: 19.8%;
+    width: 300px;
 
     .select {
       position: relative;
@@ -103,9 +103,19 @@
 }
 .stat {
   margin-left: 33.2%;
+  min-width: 103px;
+  p {
+    display: inline-block;
+    color: #476466;
+    font-weight: normal;
+
+    &:first-child {
+      min-width: 50px;
+    }
+  }
 }
 .search-bar {
-  width: 48%;
+  width: 45%;
 
   input {
     width: 100%;
@@ -118,14 +128,15 @@
     width: 25px;
     height: 25px;
     cursor: pointer;
-    &:hover {
+    &:hover,
+    &.active {
       filter: drop-shadow(2px 3px 5px #6e9c9f);
     }
   }
-  & .view-mode-three {
+  & .two {
     background: url('../assets/drag-indicator.svg') center no-repeat;
   }
-  & .view-mode-two {
+  & .three {
     background: url('../assets/apps.svg') center no-repeat;
   }
 }
