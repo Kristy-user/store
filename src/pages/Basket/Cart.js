@@ -3,6 +3,7 @@ import CartComponent from '../../components/CartComponent';
 import { AbstractView } from '../AbstractView';
 import { cartLayout } from './htmlCart';
 import Header from '../../components/Header';
+import Modal from './ModalWindow';
 
 class Cart extends AbstractView {
   constructor(params) {
@@ -47,6 +48,12 @@ class Cart extends AbstractView {
   render(root) {
     root.innerHTML = cartLayout;
     this.executeViewScript();
+    this.afterRootRender();
+  }
+
+  afterRootRender() {
+    const modalWindow = new Modal();
+    modalWindow.listener();
   }
 }
 export { Cart };
