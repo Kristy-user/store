@@ -71,7 +71,16 @@ export default class CartComponent {
       ? `Total: $ ${totalAmount}`
       : 'Total: $ 0';
   }
+  listenCardDetails() {
+    const productsList = document.querySelector('.basket-list');
 
+    productsList.addEventListener('click', (e) => {
+      if (e.target.classList.contains('basket-item-photo')) {
+        const id = e.target.id;
+        window.location.hash = `#product-details/${id}`;
+      }
+    });
+  }
   getTotalAmount() {
     const currentCart = this.cartData;
 
