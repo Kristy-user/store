@@ -18,6 +18,7 @@ class Cart extends AbstractView {
     const currentCart = this.cart.getCart();
     this.cart.setCurrentAmountHeader();
     const cartWrapper = document.querySelector('.basket-list');
+    document.querySelector('.order').classList.remove('hidden');
     if (currentCart && currentCart.length > 0) {
       const content = currentCart.map(
         (item, i) =>
@@ -41,6 +42,7 @@ class Cart extends AbstractView {
       textForEmpty.textContent = 'Cart is empty';
       cartSection.innerHTML = '';
       cartSection.append(textForEmpty);
+      document.querySelector('.order').classList.add('hidden');
     }
     Header.listener();
     this.cart.listenCount();

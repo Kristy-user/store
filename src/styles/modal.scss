@@ -1,86 +1,106 @@
 .modal {
-    display: block;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 1;
-    height: 100%;
-    width: 100%;
-    // overflow: hidden;
-    background-color: rgb(163, 163, 163, 0.7);
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  // overflow: hidden;
+  background-color: rgb(163, 163, 163, 0.7);
 }
 
 .modal-content {
-    position: relative;
-    margin: 5% auto;
-    background-color: #fefefe;
-    padding: 20px;
-    width: 600px;
-}
+  position: relative;
+  margin: 5% auto;
+  background-color: #fefefe;
+  padding: 20px;
+  width: 600px;
+  .info {
+    font-size: 20px;
+    text-align: center;
+    color: #244b4d;
+    font-weight: normal;
 
-.form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    &__group {
+    &:last-child {
+      padding-top: 10px;
+      font-size: 16px;
+      opacity: 1;
+      animation: 1s linear 0s infinite alternate flash;
     }
+  }
+}
+@keyframes flash {
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__group {
+  }
 }
 
 .card-number-wrapper {
-    display: flex;
+  display: flex;
 
-    .input {
-        min-width: 320px;
-    }
+  .input {
+    min-width: 320px;
+  }
 }
 
 .card-data-wrapper {
-    min-width: 400px;
-    display: flex;
-    justify-content: space-between;
+  min-width: 400px;
+  display: flex;
+  justify-content: space-between;
 
-    .input {
-        min-width: 120px;
-        max-width: 130px;
-    }
+  .input {
+    min-width: 120px;
+    max-width: 130px;
+  }
 }
 
 .form-title {
-    font-weight: 500;
-    font-size: 25px;
-    margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 25px;
+  margin-bottom: 20px;
 }
 
 .bankcard-img {
-    margin-top: -16px;
+  margin-top: -16px;
 }
 
 .input {
-    font-size: 17px;
-    padding-bottom: 10px;
-    margin-bottom: 35px;
-    border-bottom: 1px solid #000000;
-    min-width: 400px;
+  font-size: 17px;
+  padding-bottom: 10px;
+  margin-bottom: 35px;
+  border-bottom: 1px solid #000000;
+  min-width: 400px;
 }
 
 .error {
-    border-bottom: 1px solid red;
+  border-bottom: 1px solid red;
 }
 
 .sumbit-btn {
-    font-size: 17px;
-    background-color: #6E9C9F;
-    color: white;
-    padding: 22px 50px;
-    cursor: pointer;
-    width: 250px;
+  font-size: 17px;
+  background-color: #6e9c9f;
+  color: white;
+  padding: 22px 50px;
+  cursor: pointer;
+  width: 250px;
 
-    &:hover {
-        background-color: #509498;
-    }
+  &:hover {
+    background-color: #509498;
+  }
 }
 
 .card-title {
-    margin-top: 20px;
+  margin-top: 20px;
 }
