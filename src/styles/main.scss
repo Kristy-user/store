@@ -84,9 +84,28 @@ header {
     .total {
       font-size: 16px;
     }
-    .basket {
-      cursor: pointer;
+    .basket-box {
+      position: relative;
+      .basket-count {
+        display: block;
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        background-color: #509498a9;
+        font-size: 12px;
+        color: #fff;
+        border-radius: 50%;
+        top: -10px;
+        left: 18px;
+        z-index: 1;
+      }
+      .basket {
+        cursor: pointer;
+        position: relative;
+        z-index: 10;
+      }
     }
+
     .header.nav {
       display: flex;
 
@@ -227,11 +246,13 @@ header {
       flex-direction: column;
       border: 1px solid rgba(241, 234, 220, 1);
       min-width: 300px;
+      cursor: pointer;
       &:hover {
         box-shadow: rgba(241, 234, 220, 1) 0px 2px 8px 4px;
-        cursor: pointer;
       }
-
+      &.added {
+        box-shadow: #5094986a 0px 2px 8px 4px;
+      }
       .card__body {
         display: flex;
         align-items: center;

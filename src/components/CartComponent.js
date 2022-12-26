@@ -70,6 +70,17 @@ export default class CartComponent {
     amountEl.textContent = totalAmount
       ? `Total: $ ${totalAmount}`
       : 'Total: $ 0';
+    const cartHeader = document.querySelector('.basket-count');
+    const productInCart =
+      this.cartData && this.cartData.length > 0
+        ? this.cartData.map((item) => item.count).reduce((a, b) => a + b)
+        : 0;
+    if (productInCart > 0) {
+      cartHeader.style.display = 'block';
+      cartHeader.textContent = productInCart;
+    } else {
+      cartHeader.style.display = 'none';
+    }
   }
   listenCardDetails() {
     const productsList = document.querySelector('.basket-list');
@@ -83,7 +94,6 @@ export default class CartComponent {
   }
   getTotalAmount() {
     const currentCart = this.cartData;
-
     const totalAmount =
       currentCart && currentCart.length > 0
         ? currentCart
