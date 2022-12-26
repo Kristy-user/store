@@ -19,7 +19,10 @@ export default class Modal {
         inputName = form.querySelector('.input-name'),
         inputNumber = form.querySelector('.input-number'),
         inputAddress = form.querySelector('.input-address'),
-        inputEmail = form.querySelector('.input-email');
+        inputEmail = form.querySelector('.input-email'),
+        inputCardNumber = form.querySelector('.input-card-number'),
+        inputValidThru = form.querySelector('.input-valid-thru'),
+        inputCvv = form.querySelector('.input-cvv');
 
       form.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -47,46 +50,6 @@ export default class Modal {
         this.cvvHandler(e, cvv);
       });
 
-      let inputName = form.querySelector('.input-name'),
-        inputNumber = form.querySelector('.input-number'),
-        inputAddress = form.querySelector('.input-address'),
-        inputEmail = form.querySelector('.input-email'),
-        inputCardNumber = form.querySelector('.input-card-number'),
-        inputValidThru = form.querySelector('.input-valid-thru'),
-        inputCvv = form.querySelector('.input-cvv');
-
-      inputName.addEventListener('blur', () => {
-        if (!Validator.isValidName(inputName.value)) {
-          inputName.classList.add('error');
-          isValid = false;
-        } else {
-          inputName.classList.remove('error');
-        }
-      })
-      inputNumber.addEventListener('blur', () => {
-        if (!Validator.isValidPhone(inputNumber.value)) {
-          inputNumber.classList.add('error');
-          isValid = false;
-        } else {
-          inputNumber.classList.remove('error');
-        }
-      })
-      inputAddress.addEventListener('blur', () => {
-        if (!Validator.isValidAddress(inputAddress.value)) {
-          inputAddress.classList.add('error');
-          isValid = false;
-        } else {
-          inputAddress.classList.remove('error');
-        }
-      })
-      inputEmail.addEventListener('blur', () => {
-        if (!Validator.isValidEmail(inputEmail.value)) {
-          inputEmail.classList.add('error');
-          isValid = false;
-        } else {
-          inputEmail.classList.remove('error');
-        }
-      })
       inputCardNumber.addEventListener('blur', () => {
         if (!Validator.isValidCardNumber(inputCardNumber.value)) {
           inputCardNumber.classList.add('error');
@@ -94,7 +57,7 @@ export default class Modal {
         } else {
           inputCardNumber.classList.remove('error');
         }
-      })
+      });
       inputValidThru.addEventListener('blur', () => {
         if (!Validator.isValidValidThru(inputValidThru.value)) {
           inputValidThru.classList.add('error');
@@ -102,7 +65,7 @@ export default class Modal {
         } else {
           inputValidThru.classList.remove('error');
         }
-      })
+      });
       inputCvv.addEventListener('blur', () => {
         if (!Validator.isValidCvv(inputCvv.value)) {
           inputCvv.classList.add('error');
@@ -110,7 +73,7 @@ export default class Modal {
         } else {
           inputCvv.classList.remove('error');
         }
-      })
+      });
     });
 
     window.addEventListener('click', (e) => {
@@ -254,12 +217,10 @@ export default class Modal {
   }
   validThruHandler(e, validThru) {
     if (!e.data) return;
-
     if (e.data === '/' || e.data === ' ') {
       validThru.value = validThru.value.slice(0, -1);
       return;
     }
-
     validThru.value = validThru.value.replace(/[^0-9\/]+/g, '');
     if (
       validThru.value.replace(/\//g, '').length % 2 === 0 &&
@@ -275,9 +236,7 @@ export default class Modal {
 
   cvvHandler(e, cvv) {
     if (!e.data) return;
-
     cvv.value = cvv.value.replace(/[^0-9]+/g, '');
-
     if (cvv.value.length > 3) {
       cvv.value = cvv.value.slice(0, -1);
     }
