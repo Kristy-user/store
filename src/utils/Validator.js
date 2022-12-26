@@ -8,7 +8,7 @@ export default class Validator {
   }
 
   static isValidPhone(number) {
-    const re = /^([+]{1}[0-9]{9,30})?$/;
+    const re = /^([+ ]{2}[0-9]{9,14})?$/;
     return String(number).length > 0 && re.test(String(number));
   }
 
@@ -29,7 +29,11 @@ export default class Validator {
 
   static isValidCardNumber(cardNumber) {
     const re = /^([0-9]{4}[ ]{1}[0-9]{4}[ ]{1}[0-9]{4}[ ]{1}[0-9]{4})?$/;
-    return String(cardNumber).length > 0 && re.test(String(cardNumber));
+    return (
+      String(cardNumber).length > 0 &&
+      re.test(String(cardNumber)) &&
+      this.isCreditCardNumber(cardNumber)
+    );
   }
 
   static isValidValidThru(validThru) {
@@ -46,5 +50,22 @@ export default class Validator {
 
   static isValidCvv(cvv) {
     return cvv.length === 3;
+  }
+  static isCreditCardNumber(ccn) {
+    const cnnArr = ccn
+      .toString()
+      .split('')
+      .filter((n) => n !== ' ');
+
+    const result = cnnArr.map((item, i) => {
+      if (
+        (i % 2 === 0 && cnnArr.length % 2 === 0) ||
+        (i % 2 && cnnArr.length % 2)
+      ) {
+        return item * 2 > 9 ? item * 2 - 9 : item * 2;
+      }
+      return Number(item);
+    });
+    return result.reduce((prev, curr) => prev + curr, 0) % 10 === 0;
   }
 }

@@ -7,9 +7,9 @@ export const modalLayout = `
             <div class="error-name">Please enter a valid name (NAME SURNAME) </div>
         </div>
         <div class="form__group">
-            <input type="text" class="input input-number" name="number" placeholder="Phone number">
-            <div class="error-number">Please enter a valid phone number (starts with '+' and no shorter
-            than 9 characters) </div>
+            <input type="tel" minlength="9"
+            maxlength="14" class="input input-number" name="number" placeholder="Phone number">
+            <div class="error-number">Please enter a valid phone number (phone number length minimum 9 and maximum 14). </div>
         </div>
         <div class="form__group">
             <input type="text" class="input input-address" name="address" placeholder="Delivery address">
@@ -23,10 +23,17 @@ export const modalLayout = `
         <div class="form__group card-number-wrapper">
             <input type="text" class="input input-card-number" name="card-number" placeholder="Card number">
             <img src="./assets/bankCard.png" class="bankcard-img" width="80px" height="50px" alt="bankCard">
-        </div>
+             </div>
+         <div class="error-card-number">Please enter a valid payment card number. </div>
         <div class="card-data-wrapper">
-            <input type="text" class="input input-valid-thru" name="valid-thru" placeholder="valid thru">
+        <div>
+        <input type="text" class="input input-valid-thru" name="valid-thru" placeholder="valid thru">
+            <div class="error-thru">MM/YY </div>
+            </div>
+            <div>
             <input type="text" class="input input-cvv" name="cvv" placeholder="CVV">
+            <div class="error-cvv">XXX</div>
+            </div>   
         </div>
         <button class="sumbit-btn" type="submit">
             Confirm

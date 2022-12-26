@@ -26,7 +26,10 @@
   .error-number,
   .error-address,
   .error-phone,
-  .error-email {
+  .error-email,
+  .error-card-number,
+  .error-thru,
+  .error-cvv {
     max-width: 400px;
     color: red;
     font-size: 14px;
@@ -35,6 +38,9 @@
     &.show {
       display: block;
     }
+  }
+  .error-card-number {
+    margin-left: -20%;
   }
   .info {
     font-size: 20px;
@@ -69,7 +75,7 @@
 
 .card-number-wrapper {
   display: flex;
-
+  flex-wrap: wrap;
   .input {
     min-width: 320px;
   }
