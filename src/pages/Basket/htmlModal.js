@@ -4,15 +4,20 @@ export const modalLayout = `
         <p class="form-title personal-title">Personal Data</p>
         <div class="form__group">
             <input type="text" class="input input-name" name="fullName" placeholder="Name">
+            <div class="error-name">Please enter a valid name (NAME SURNAME) </div>
         </div>
         <div class="form__group">
             <input type="text" class="input input-number" name="number" placeholder="Phone number">
+            <div class="error-number">Please enter a valid phone number (starts with '+' and no shorter
+            than 9 characters) </div>
         </div>
         <div class="form__group">
             <input type="text" class="input input-address" name="address" placeholder="Delivery address">
+            <div class="error-address">Please enter a valid address (Main info: Country Region City Street 45/12) </div>
         </div>
         <div class="form__group">
             <input type="email" class="input input-email" name="email" placeholder="E-mail">
+            <div class="error-email">Please enter a valid email (name@test.com) </div>
         </div>
         <p class="form-title card-title">Card data</p>
         <div class="form__group card-number-wrapper">

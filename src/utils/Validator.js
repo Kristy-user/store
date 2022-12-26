@@ -1,9 +1,7 @@
 export default class Validator {
   static isValidName(name) {
     const nameArray = name.split(' ');
-
     if (nameArray.length < 2) return false;
-
     return (
       nameArray.filter((part) => part.length > 2).length === nameArray.length
     );
@@ -16,11 +14,9 @@ export default class Validator {
 
   static isValidAddress(address) {
     const addressArray = address.split(' ');
-
     if (addressArray.length < 3) return false;
-
     return (
-      addressArray.filter((part) => part.length > 4).length ===
+      addressArray.filter((part) => part.length > 3).length ===
       addressArray.length
     );
   }
@@ -42,7 +38,6 @@ export default class Validator {
     if (validThruArray.length === 1) return false;
 
     if (Number(validThruArray[0]) > 12) return false;
-    console.log(validThruArray[0].length, validThruArray[1].length);
     return (
       validThruArray.filter((part) => part.length === 2).length ===
       validThruArray.length

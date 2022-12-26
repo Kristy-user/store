@@ -15,13 +15,28 @@ export default class Modal {
       form = document.querySelector('.form');
       let cardNumber = form.querySelector('.input-card-number'),
         validThru = form.querySelector('.input-valid-thru'),
-        cvv = form.querySelector('.input-cvv');
+        cvv = form.querySelector('.input-cvv'),
+        inputName = form.querySelector('.input-name'),
+        inputNumber = form.querySelector('.input-number'),
+        inputAddress = form.querySelector('.input-address'),
+        inputEmail = form.querySelector('.input-email');
 
       form.addEventListener('submit', (event) => {
         event.preventDefault();
         return this.isValidForm(form);
       });
-
+      inputName.addEventListener('blur', (e) => {
+        this.validName(inputName);
+      });
+      inputNumber.addEventListener('blur', (e) => {
+        this.validPhone(inputNumber);
+      });
+      inputAddress.addEventListener('blur', (e) => {
+        this.validAddress(inputAddress);
+      });
+      inputEmail.addEventListener('blur', (e) => {
+        this.validEmail(inputEmail);
+      });
       cardNumber.addEventListener('input', (e) => {
         this.cardNumberHandler(e, cardNumber);
       });
@@ -59,41 +74,15 @@ export default class Modal {
       inputValidThru = form.querySelector('.input-valid-thru'),
       inputCvv = form.querySelector('.input-cvv');
 
-    let nameValue = inputName.value,
-      numberValue = inputNumber.value,
-      addressValue = inputAddress.value,
-      emailValue = inputEmail.value,
-      cardNumberValue = inputCardNumber.value,
+    let cardNumberValue = inputCardNumber.value,
       validThruValue = inputValidThru.value,
       cvvValue = inputCvv.value;
 
-    if (!Validator.isValidName(nameValue)) {
-      inputName.classList.add('error');
-      isValid = false;
-    } else {
-      inputName.classList.remove('error');
-    }
-
-    if (!Validator.isValidPhone(numberValue)) {
-      inputNumber.classList.add('error');
-      isValid = false;
-    } else {
-      inputNumber.classList.remove('error');
-    }
-
-    if (!Validator.isValidAddress(addressValue)) {
-      inputAddress.classList.add('error');
-      isValid = false;
-    } else {
-      inputAddress.classList.remove('error');
-    }
-
-    if (!Validator.isValidEmail(emailValue)) {
-      inputEmail.classList.add('error');
-      isValid = false;
-    } else {
-      inputEmail.classList.remove('error');
-    }
+    this.validName(inputName, isValid);
+    this.validPhone(inputNumber, isValid);
+    this.validEmail(inputEmail, isValid);
+    this.validAddress(inputAddress, isValid);
+    isValid = document.querySelectorAll('.error').length === 0;
 
     if (!Validator.isValidCardNumber(cardNumberValue)) {
       inputCardNumber.classList.add('error');
@@ -131,7 +120,6 @@ export default class Modal {
   cardNumberHandler(e, cardNumber) {
     // при удалении символов сразу возврат
     if (!e.data) return;
-
     // сами не можем вводить пробелы
     if (e.data === ' ') {
       cardNumber.value = cardNumber.value.slice(0, -1);
@@ -163,7 +151,42 @@ export default class Modal {
       bankCardImg.src = './assets/bankCard.png';
     }
   }
-
+  validEmail(input) {
+    if (!Validator.isValidEmail(input.value)) {
+      input.classList.add('error');
+      document.querySelector('.error-email').classList.add('show');
+    } else {
+      input.classList.remove('error');
+      document.querySelector('.error-email').classList.remove('show');
+    }
+  }
+  validPhone(input) {
+    if (!Validator.isValidPhone(input.value)) {
+      input.classList.add('error');
+      document.querySelector('.error-number').classList.add('show');
+    } else {
+      input.classList.remove('error');
+      document.querySelector('.error-number').classList.remove('show');
+    }
+  }
+  validName(input) {
+    if (!Validator.isValidName(input.value)) {
+      input.classList.add('error');
+      document.querySelector('.error-name').classList.add('show');
+    } else {
+      input.classList.remove('error');
+      document.querySelector('.error-name').classList.remove('show');
+    }
+  }
+  validAddress(input) {
+    if (!Validator.isValidAddress(input.value)) {
+      input.classList.add('error');
+      document.querySelector('.error-address').classList.add('show');
+    } else {
+      input.classList.remove('error');
+      document.querySelector('.error-address').classList.remove('show');
+    }
+  }
   validThruHandler(e, validThru) {
     if (!e.data) return;
 
