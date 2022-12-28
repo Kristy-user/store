@@ -3,35 +3,30 @@ import Storage from '../utils/Storage';
 
 export default class CartComponent {
   constructor() {
-    this.storage = new Storage('shop');
-    this.cartData = this.storage.get('cart') || [];
+    this.storage = new Storage('cart');
+    this.cartData = this.storage.get('inCart') || [];
   }
   listenCart(allData) {
     this.setCurrentAmountHeader();
-    const allProducts = document.querySelector('.products__wrapper');
+    const allProducts = document.querySelector('.products-items');
     allProducts.addEventListener('click', (e) => {
-      if (e.target.className !== 'card__buttons-add') {
-        return;
-      } else {
-        const currentId = Number(e.target.id);
-        const checkedProduct = allData.find((item) => item.id === currentId);
-
-        this.cartData.forEach((item) => {
-          if (item.id === currentId && item.stock >= item.count + 1) {
-            item.count += 1;
-          }
-        });
-        if (
-          this.cartData.length === 0 ||
-          !this.cartData.map((item) => item.id).find((id) => id === currentId)
-        ) {
-          checkedProduct.count = 1;
-          this.cartData.push(checkedProduct);
-        }
-        this.storage.set('cart', this.cartData);
-        this.setCurrentAmountHeader();
+      this.cartData = this.storage.get('inCart') || [];
+      const currentId = Number(e.target.id);
+      const checkedProduct = allData.find((item) => item.id === currentId);
+      if (e.target.className === 'card__buttons-add') {
+        checkedProduct.count = 1;
+        this.cartData.push(checkedProduct);
+        this.storage.set('inCart', this.cartData);
+        this.toggleButton(e.target, e.target.id, 'Remove from cart');
+      } else if (e.target.className === 'card__buttons-remove') {
+        checkedProduct.count = 0;
+        const newData = this.cartData.filter(
+          (item) => String(item.id) !== e.target.id
+        );
+        this.storage.set('inCart', newData);
+        this.toggleButton(e.target, e.target.id, 'Add to cart');
       }
-      this.storage.set('cart', this.cartData);
+      this.setCurrentAmountHeader();
     });
   }
   listenCount() {
@@ -44,16 +39,17 @@ export default class CartComponent {
             ? (item.count += 1)
             : item
         );
-        this.storage.set('cart', this.cartData);
+        this.storage.set('inCart', this.cartData);
       } else if (e.target.classList.contains('basket-item-remove')) {
         const currentId = Number(e.target.closest('div').id);
         this.cartData.forEach((item) => {
           if (item.id === currentId && item.count > 1) {
             item.count -= 1;
+            this.storage.set('inCart', this.cartData);
           } else if (item.id === currentId && item.count === 1) {
-            this.cartData = this.cartData.filter((prod) => prod.id !== item.id);
+            const newData = this.cartData.filter((prod) => prod.id !== item.id);
+            this.storage.set('inCart', newData);
           }
-          this.storage.set('cart', this.cartData);
         });
       }
       const view = new Cart('#cart');
@@ -70,6 +66,9 @@ export default class CartComponent {
     amountEl.textContent = totalAmount
       ? `Total: $ ${totalAmount}`
       : 'Total: $ 0';
+    this.setProductsInCart();
+  }
+  setProductsInCart() {
     const cartHeader = document.querySelector('.basket-count');
     const productInCart =
       this.cartData && this.cartData.length > 0
@@ -84,7 +83,6 @@ export default class CartComponent {
   }
   listenCardDetails() {
     const productsList = document.querySelector('.basket-list');
-
     productsList.addEventListener('click', (e) => {
       if (e.target.classList.contains('basket-item-photo')) {
         const id = e.target.id;
@@ -93,16 +91,23 @@ export default class CartComponent {
     });
   }
   getTotalAmount() {
-    const currentCart = this.cartData;
+    this.cartData = this.storage.get('inCart') || [];
     const totalAmount =
-      currentCart && currentCart.length > 0
-        ? currentCart
+      this.cartData && this.cartData.length > 0
+        ? this.cartData
             .map((item) => item.price * item.count)
             .reduce((prev, curr) => prev + curr)
         : 0;
     return totalAmount;
   }
   getCart() {
-    return this.cartData;
+    return this.storage.get('inCart') ? this.storage.get('inCart') : [];
+  }
+  toggleButton(target, id, text) {
+    const addedItem = document.querySelector(`.card__item.id-${id}`);
+    target.textContent = `${text}`;
+    target.classList.toggle('card__buttons-remove');
+    target.classList.toggle('card__buttons-add');
+    addedItem.classList.toggle('in-cart');
   }
 }
