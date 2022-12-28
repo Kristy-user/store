@@ -1,18 +1,17 @@
-import { ProductsFilter } from '../pages/ProductsFilter/ProductsFilter';
-import { Home } from '../pages/Home/Home.js';
 import { ProductDetails } from '../pages/ProductDetails/ProductDetails';
 import Error from '../pages/404/404';
 import { Cart } from '../pages/Basket/Cart';
+import { Home } from '../pages/Home/Home';
 
 class Router {
   constructor() {
     this.root = document.querySelector('#root');
   }
-  router() {
+  async router() {
     const routes = [
       { path: '/', view: Home },
       { path: '#product-details', view: ProductDetails },
-      { path: '#?', view: ProductsFilter },
+      { path: '#?', view: Home },
       { path: '#cart', view: Cart },
     ];
     const hash = location.hash.toLocaleLowerCase() || '/';
@@ -36,10 +35,10 @@ class Router {
       pathInd >= 0 ? new routes[pathInd].view(hash) : new Error(hash);
     if ((pathInd === 0 || pathInd === 2) && hash.length > 3 && root.innerHTML) {
       document.querySelector('.products-items').innerHTML = '';
-      view.afterRootRender();
+      await view.afterRootRender();
     } else {
       this.root.innerHTML = '';
-      view.render(this.root);
+      await view.render(this.root);
     }
   }
 

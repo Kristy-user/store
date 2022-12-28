@@ -1,20 +1,14 @@
 import Storage from '../../utils/Storage';
-import PriceFilterListener from './PriceFilterSlider';
-import Search from '../Filters/SearchListener';
-import StockFilterListener from './StockFilterSlider';
-import Sort from '../Sort/Sort';
 import RouterHelper from '../../utils/RouterHelper';
 
 class FilterListener {
   constructor() {
     this.filters = ['category', 'brand', 'price', 'stock'];
     this.storage = new Storage('shop');
-    this.search = new Search();
-    this.price = new PriceFilterListener();
-    this.stock = new StockFilterListener();
-    this.sort = new Sort();
+    this.storageData = this.storage.getAll();
   }
-  listen = (minPrice, maxPrice, minStock, maxStock, count) => {
+  listen = () => {
+    this.addChecked();
     const filtersBox = document.querySelector('.filters__box');
     filtersBox.addEventListener('change', (e) => {
       if (this.filters.includes(e.target.name)) {
@@ -22,9 +16,12 @@ class FilterListener {
           `[name=${e.target.name}]:checked`
         );
         const checkedValues = [];
+
         allCheckedInputs.forEach((name) => checkedValues.push(name.value));
+
         this.storage.set(`${e.target.name}`, checkedValues);
         const currentFilters = this.storage.getAll();
+
         let hash = `#?/`;
         const currentHash = window.location.hash;
         const hashToAdd = currentHash
@@ -45,7 +42,7 @@ class FilterListener {
         hashToAdd.forEach((item) => (hash += `&${item}`));
         hash[3] === '&' ? (hash = hash.replace('&', '')) : hash;
 
-        return (window.location.hash = hash.length === 3 ? '' : hash);
+        window.location.hash = hash.length === 3 ? '' : hash;
       }
     });
     const buttonRemove = document.querySelector('#remove');
@@ -55,10 +52,6 @@ class FilterListener {
         window.location.hash = '';
       }
     });
-    this.search.listenSearch();
-    this.price.listenPrice(minPrice, maxPrice);
-    this.stock.listenStock(minStock, maxStock);
-    this.sort.listen(count);
   };
   addChecked = () => {
     let currentFilters = RouterHelper.setFilter(location.hash);
@@ -75,6 +68,10 @@ class FilterListener {
   };
   clearFilters() {
     this.filters.forEach((filter) => this.storage.drop(filter));
+    const allCheckedInputs = document.querySelectorAll(
+      `[type="checkbox"]:checked`
+    );
+    allCheckedInputs.forEach((input) => (input.checked = false));
   }
 }
 export default FilterListener;

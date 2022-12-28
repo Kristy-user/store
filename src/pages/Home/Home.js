@@ -1,61 +1,110 @@
 import ProductCards from '../../components/ProductCards.js';
-import FilterListener from '../../components/Filters/FilterListener.js';
 import { AbstractView } from '../AbstractView.js';
 import { data } from '../../index';
+import RouterHelper from '../../utils/RouterHelper.js';
 import { homeRoot } from './htmlData.js';
 
-import CartComponent from '../../components/CartComponent.js';
-import Header from '../../components/Header.js';
+import AllListener from '../../components/Filters/AllListener.js';
 
 class Home extends AbstractView {
   constructor(params) {
     super(params);
     this.setTitle('Home');
     this.productsView = new ProductCards();
-    this.cart = new CartComponent();
-    this.listener = new FilterListener();
+    this.listener = new AllListener();
+    this.currentFilters = RouterHelper.setFilter(this.params);
+    this.minPrice = '';
+    this.maxPrice = '';
+    this.minStock = '';
+    this.maxStock = '';
   }
+  async getCategoryProducts() {
+    const allData = await data;
+    let keys = Object.keys(this.currentFilters);
+    let productsList = allData.products;
+    keys.forEach((key) => {
+      productsList = productsList.filter((item) => {
+        if (key === 'price') {
+          this.minPrice = this.currentFilters[key][0];
+          this.maxPrice = this.currentFilters[key][1];
+          return (
+            item.price >= this.currentFilters[key][0] &&
+            item.price <= this.currentFilters[key][1]
+          );
+        } else if (key === 'stock') {
+          this.minStock = this.currentFilters[key][0];
+          this.maxStock = this.currentFilters[key][1];
+          return (
+            item.stock >= this.currentFilters[key][0] &&
+            item.stock <= this.currentFilters[key][1]
+          );
+        } else if (key === 'search') {
+          return (
+            item.title.toLowerCase().includes(this.currentFilters[key][0]) ||
+            item.description.toLowerCase().includes(this.currentFilters[key][0])
+          );
+        } else if (key === 'sort') {
+          return item;
+        } else if (key === 'view') {
+          return item;
+        }
+        return this.currentFilters[key].includes(item[key].toLowerCase());
+      });
+      if (key === 'sort') {
+        this.sortData(productsList);
+      }
+    });
 
+    return productsList;
+  }
   async afterRootRender() {
-    const myData = await data;
-    const productsList = this.productsView.draw(myData.products);
+    const productsList = await this.getCategoryProducts();
+    const productsElement = this.productsView.draw(productsList);
     const productListContainer = document.querySelector('.products-items');
-    productListContainer.append(productsList);
-    const maxPrice = Math.max(...myData.products.map((item) => item.price));
-    const minPrice = Math.min(...myData.products.map((item) => item.price));
-    const maxStock = Math.max(...myData.products.map((item) => item.stock));
-    const minStock = Math.min(...myData.products.map((item) => item.stock));
-    this.listener.listen(
-      minPrice,
-      maxPrice,
-      minStock,
-      maxStock,
-      myData.products.length
+    if (productsElement) {
+      productListContainer.append(productsElement);
+    } else {
+      const wrapper = document.createElement('div');
+      wrapper.classList.add('not__found');
+      document.querySelector('.products-items').append(wrapper);
+    }
+    const maxPrice = Math.max(...productsList.map((item) => item.price));
+    const minPrice = Math.min(...productsList.map((item) => item.price));
+    const maxStock = Math.max(...productsList.map((item) => item.stock));
+    const minStock = Math.min(...productsList.map((item) => item.stock));
+    this.listener.listenDynamicData(
+      this.minPrice ? this.minPrice : minPrice,
+      this.maxPrice ? this.maxPrice : maxPrice,
+      this.minStock ? this.minStock : minStock,
+      this.maxStock ? this.maxStock : maxStock,
+      productsList.length,
+      productsList
     );
-
-    this.listener.clearFilters();
-    this.cart.listenCart(myData.products);
-    Header.listener();
   }
 
   async render(root) {
     root.innerHTML = homeRoot;
+    const allData = await data;
+    this.listener.listenStaticData(allData.products);
     await this.afterRootRender();
   }
-  async search(data) {
-    const inputValue = document.querySelector('.search__input').value;
-    const myData = await data;
-    const searchData = myData.products.filter((item) => {
-      for (let key in item) {
-        if (
-          typeof item[key] === 'string' &&
-          item[key].toUpperCase().includes(inputValue.toUpperCase())
-        )
-          return true;
-      }
-      return false;
-    });
-    return searchData;
+  sortData(data) {
+    switch (this.currentFilters['sort'][0]) {
+      case 'price-asc':
+        data = data.sort((a, b) => Number(a.price) - Number(b.price));
+        break;
+      case 'price-desc':
+        data = data.sort((a, b) => Number(b.price) - Number(a.price));
+        break;
+      case 'rating-asc':
+        data = data.sort((a, b) => Number(a.rating) - Number(b.rating));
+        break;
+      case 'rating-desc':
+        data = data.sort((a, b) => Number(b.rating) - Number(a.rating));
+        break;
+      default:
+        break;
+    }
   }
 }
 export { Home };

@@ -9,7 +9,7 @@ class RouterHelper {
   };
 
   static setFilter = (path) => {
-    if (path) {
+    if (path && path.length > 2) {
       const filtersString = path.split('?')[1].replace('/', '');
       const filters = {};
       filtersString.split('&').forEach((elem) => {

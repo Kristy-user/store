@@ -81,6 +81,9 @@ header {
       height: 50px;
       cursor: pointer;
     }
+    .total-wrapper {
+      min-width: 100px;
+    }
     .total {
       font-size: 16px;
     }
@@ -250,8 +253,8 @@ header {
       &:hover {
         box-shadow: rgba(241, 234, 220, 1) 0px 2px 8px 4px;
       }
-      &.added {
-        box-shadow: #5094986a 0px 2px 8px 4px;
+      &.in-cart {
+        box-shadow: rgba(80, 148, 152, 0.5) 0px 0px 4px 1px;
       }
       .card__body {
         display: flex;
@@ -292,7 +295,8 @@ header {
       }
 
       .card__link-details,
-      .card__buttons-add {
+      .card__buttons-add,
+      .card__buttons-remove {
         margin: 10px 0;
         background: #6e9c9f;
         color: white;

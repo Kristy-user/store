@@ -30,14 +30,15 @@ class ProductDetails extends AbstractView {
         : this.showIncorrect();
     } else return this.showIncorrect();
   }
-  async executeViewScript() {
+  async afterRootRender() {
     const productItem = await this.getItem();
-    const productItemContainer = document.querySelector('#root .container');
+    const productItemContainer = document.querySelector('.product-details');
     productItemContainer.append(productItem);
   }
-  async render(root) {
-    root.innerHTML = `<div class="container"></div>`;
-    await this.executeViewScript();
+  async render() {
+    document.querySelector('#root').innerHTML =
+      '<div class="product-details container"></div>';
+    await this.afterRootRender();
   }
 }
 export { ProductDetails };

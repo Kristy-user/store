@@ -1,6 +1,6 @@
 class Storage {
-  constructor(store) {
-    this.store = store;
+  constructor(name) {
+    this.store = name;
     this.obj = this.getAll();
   }
   set(key, value) {
@@ -16,6 +16,9 @@ class Storage {
     this.obj[key] && this.obj[key].length > 0
       ? (this.obj[key].length = 0)
       : this.obj[key];
+    const data = this.obj;
+    const newData = JSON.stringify(data);
+    localStorage.setItem(this.store, newData);
   }
   getAll() {
     const data = localStorage.getItem(this.store);
