@@ -12,10 +12,15 @@ export const cartLayout = `
         <div class="order">
             <div class="coupon__wrapper">
                <input type="text" class="coupon" placeholder="Enter promo code">
-               <button class="coupon-btn">Apply coupon</button>
+               <div class="find-coupon"></div>
+               <div class="applied-coupons"></div>
             </div>
             <div class="buy__wrapper">
-                <div class="buy__total"><p>Total:&nbsp;&nbsp; </p><p class="buy__total-amount"> </p></div>
+                <div class="buy__total">
+                    <p>Total:&nbsp;&nbsp;</p>
+                    <p class="buy__total-amount"></p>
+                    <div class="discount-price"></div>
+                </div>
                 <button class="buy__order">BUY NOW</button>
             </div>
         <div>

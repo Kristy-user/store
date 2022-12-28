@@ -4,6 +4,7 @@ import { AbstractView } from '../AbstractView';
 import { cartLayout } from './htmlCart';
 import Header from '../../components/Header';
 import Modal from './ModalWindow';
+import PromoCode from './PromoCode';
 
 class Cart extends AbstractView {
   constructor(params) {
@@ -79,6 +80,8 @@ class Cart extends AbstractView {
   afterRootRender() {
     const modalWindow = new Modal();
     modalWindow.listener();
+    const promo = new PromoCode();
+    promo.listener();
   }
 }
 export { Cart };
