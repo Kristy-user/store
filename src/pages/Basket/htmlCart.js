@@ -11,7 +11,7 @@ export const cartLayout = `
         <div ><ul class="basket-list"></ul></div>
         <div class="order">
             <div class="coupon__wrapper">
-               <input type="text" class="coupon" placeholder="Enter promo code">
+               <input type="text" class="coupon" placeholder="promo code (rss, epam)">
                <div class="find-coupon"></div>
                <div class="applied-coupons"></div>
             </div>

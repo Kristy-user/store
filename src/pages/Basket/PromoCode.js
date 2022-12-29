@@ -4,11 +4,12 @@ export default class PromoCode {
   constructor() {
     this.couponInput = document.querySelector('.coupon');
     this.couponApplyBtn = document.querySelector('.coupon-btn');
-    this.appliedPromo = new Set();
+    this.appliedPromo = new Set(JSON.parse(localStorage.getItem('coupons')) || []);
   }
   // <button class="coupon-btn">Apply coupon</button>
 
   listener() {
+    this.createList();
     this.couponInput.addEventListener('input', () => {
       for (let promo in promocodes) {
         if (this.couponInput.value.toLowerCase() === promo) {
@@ -33,6 +34,11 @@ export default class PromoCode {
 
     applyPromoBtn.addEventListener('click', () => {
       this.appliedPromo.add(promo);
+
+      let array = JSON.parse(localStorage.getItem('coupons')) || [];
+      array.push(promo);
+      localStorage.setItem('coupons', JSON.stringify(array));
+
       this.createList();
     });
 
@@ -78,6 +84,11 @@ export default class PromoCode {
 
       drop.addEventListener('click', () => {
         this.appliedPromo.delete(promo);
+
+        let array = JSON.parse(localStorage.getItem('coupons')) || [];
+        let newArray = array.filter(item => item !== promo);
+        localStorage.setItem('coupons', JSON.stringify(newArray));
+
         this.createList();
       });
 
@@ -101,8 +112,8 @@ export default class PromoCode {
       }, 0);
 
       document.querySelector('.discount-price').textContent = `Total:   $ ${
-        +document.querySelector('.buy__total-amount').textContent.slice(2) *
-        (1 - percentAmount / 100)
+        (+document.querySelector('.buy__total-amount').textContent.slice(2) *
+        (1 - percentAmount / 100)).toFixed(2)
       }`;
     } else {
       document.querySelector('.discount-price').innerHTML = '';

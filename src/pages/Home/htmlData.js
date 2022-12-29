@@ -93,6 +93,9 @@ export const homeRoot = `<section class="products container">
       <div id="remove">
         <button class="filters__box-remove">Remove all filters</button>
       </div>
+      <div class="copy__wrapper">
+        <button class="copy">Copy link</button>
+      </div>
     </div>
   </div>
 </aside>

@@ -228,6 +228,24 @@ header {
           }
         }
       }
+
+      .copy__wrapper {
+        display: flex;
+        justify-content: center;
+      }
+      .copy {
+        background-color: #6e9c9f;
+        min-width: 180px;
+        padding: 22px;
+        font-weight: 400;
+        font-size: 17px;
+        color: white;
+        cursor: pointer;
+      
+        &:hover {
+          background-color: #509498;
+        }
+      }
     }
   }
   .products-items {
