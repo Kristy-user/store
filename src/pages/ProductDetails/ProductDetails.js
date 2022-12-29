@@ -4,6 +4,7 @@ import ProductDetailsCard from '../../components/ProductDetailsCard';
 import Header from '../../components/Header';
 import CartComponent from '../../components/CartComponent';
 import Modal from '../Basket/ModalWindow';
+import PhotoListener from '../../components/Filters/PhotoListener';
 
 class ProductDetails extends AbstractView {
   constructor(params) {
@@ -13,6 +14,7 @@ class ProductDetails extends AbstractView {
     this.productsView = new ProductDetailsCard();
     this.cart = new CartComponent();
     this.modalWindow = new Modal();
+    this.photo = new PhotoListener();
   }
 
   showIncorrect() {
@@ -40,6 +42,7 @@ class ProductDetails extends AbstractView {
     Header.listener();
     this.cart.listenCart(data.products);
     this.modalWindow.listener();
+    this.photo.listenPhoto();
   }
   render(root, data) {
     root.innerHTML = '<div class="product-details container"></div>';

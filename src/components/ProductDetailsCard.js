@@ -19,9 +19,9 @@ class ProductDetailsCard {
       cardClone.querySelector('.crumb-title').textContent = product.title;
       cardClone.querySelector('.product-item').textContent = product.title;
       cardClone.querySelector('.img-one').src = product.thumbnail;
-      cardClone.querySelector('.img-two').src = product.images[2];
+      cardClone.querySelector('.img-two').src = product.images[1];
       cardClone.querySelector('.img-three').src =
-        product.images[3] || product.images[1];
+        product.images[2] || product.images[0];
       cardClone.querySelector('.img-main').src = product.thumbnail;
       cardClone.querySelector('.product-description-text').textContent =
         product.description;
