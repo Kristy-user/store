@@ -1,6 +1,5 @@
 import ProductCards from '../../components/ProductCards.js';
 import { AbstractView } from '../AbstractView.js';
-import { data } from '../../index';
 import RouterHelper from '../../utils/RouterHelper.js';
 import { homeRoot } from './htmlData.js';
 
@@ -18,10 +17,9 @@ class Home extends AbstractView {
     this.minStock = '';
     this.maxStock = '';
   }
-  async getCategoryProducts() {
-    const allData = await data;
+  getCategoryProducts(data) {
     let keys = Object.keys(this.currentFilters);
-    let productsList = allData.products;
+    let productsList = data;
     keys.forEach((key) => {
       productsList = productsList.filter((item) => {
         if (key === 'price') {
@@ -54,11 +52,10 @@ class Home extends AbstractView {
         this.sortData(productsList);
       }
     });
-
     return productsList;
   }
-  async afterRootRender() {
-    const productsList = await this.getCategoryProducts();
+  afterRootRender(data) {
+    const productsList = this.getCategoryProducts(data.products);
     const productsElement = this.productsView.draw(productsList);
     const productListContainer = document.querySelector('.products-items');
     if (productsElement) {
@@ -82,11 +79,10 @@ class Home extends AbstractView {
     );
   }
 
-  async render(root) {
+  render(root, data) {
     root.innerHTML = homeRoot;
-    const allData = await data;
-    this.listener.listenStaticData(allData.products);
-    await this.afterRootRender();
+    this.listener.listenStaticData(data.products);
+    this.afterRootRender(data);
   }
   sortData(data) {
     switch (this.currentFilters['sort'][0]) {

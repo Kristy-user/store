@@ -26,7 +26,7 @@ class AllListener {
     this.search.listenSearch();
     this.cart.listenCart(data);
     Header.listener();
-    if (localStorage.hash < 1) {
+    if (location.hash < 1) {
       this.clearFilters();
     }
   }

@@ -14,7 +14,6 @@ export default class CartComponent {
     currentContent.addEventListener('click', (e) => {
       this.cartData = this.storage.get('inCart') || [];
       const currentId = Number(e.target.id);
-      console.log;
       const checkedProduct = allData.find((item) => item.id === currentId);
       if (e.target.className === 'card__buttons-add') {
         checkedProduct.count = 1;

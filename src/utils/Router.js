@@ -2,6 +2,7 @@ import { ProductDetails } from '../pages/ProductDetails/ProductDetails';
 import Error from '../pages/404/404';
 import { Cart } from '../pages/Basket/Cart';
 import { Home } from '../pages/Home/Home';
+import { data } from '../index.js';
 
 class Router {
   constructor() {
@@ -14,6 +15,7 @@ class Router {
       { path: '#?', view: Home },
       { path: '#cart', view: Cart },
     ];
+    const currentProducts = await data;
     const hash = location.hash.toLocaleLowerCase() || '/';
 
     const isAppRoute = () => {
@@ -31,14 +33,15 @@ class Router {
       }
     };
     const pathInd = isAppRoute();
+    const productList = document.querySelector('.products-items');
     const view =
       pathInd >= 0 ? new routes[pathInd].view(hash) : new Error(hash);
-    if ((pathInd === 0 || pathInd === 2) && hash.length > 3 && root.innerHTML) {
-      document.querySelector('.products-items').innerHTML = '';
-      await view.afterRootRender();
+    if ((pathInd === 0 || pathInd === 2) && hash.length > 3 && productList) {
+      productList.innerHTML = '';
+      await view.afterRootRender(currentProducts);
     } else {
       this.root.innerHTML = '';
-      await view.render(this.root);
+      await view.render(this.root, currentProducts);
     }
   }
 
