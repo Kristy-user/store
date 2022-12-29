@@ -70,6 +70,7 @@ export default class CartComponent {
   }
   setProductsInCart() {
     const cartHeader = document.querySelector('.basket-count');
+    const basketAmount = document.querySelector('.basket-amount');
     const productInCart =
       this.cartData && this.cartData.length > 0
         ? this.cartData.map((item) => item.count).reduce((a, b) => a + b)
@@ -77,6 +78,9 @@ export default class CartComponent {
     if (productInCart > 0) {
       cartHeader.style.display = 'block';
       cartHeader.textContent = productInCart;
+      basketAmount
+        ? (basketAmount.textContent = `Products: ${productInCart}`)
+        : null;
     } else {
       cartHeader.style.display = 'none';
     }

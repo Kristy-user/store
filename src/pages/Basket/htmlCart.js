@@ -16,8 +16,9 @@ export const cartLayout = `
                <div class="applied-coupons"></div>
             </div>
             <div class="buy__wrapper">
-                <div class="buy__total">
-                    <p>Total:&nbsp;&nbsp;</p>
+              <div class="buy__total"><div><p class="basket-amount"></p>
+            </div>
+                  <p>Total:&nbsp;&nbsp;</p>
                     <p class="buy__total-amount"></p>
                     <div class="discount-price"></div>
                 </div>
