@@ -152,6 +152,7 @@
       align-items: center;
       width: 100%;
       .buy__total {
+        position: relative;
         text-align: center;
         background: #f1eadc;
         padding: 16px;
@@ -177,5 +178,73 @@
         }
       }
     }
+  }
+}
+
+.find-coupon {
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #000000;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+
+  .find-promo {
+    margin-right: 20px;
+  }
+
+  .apply-promo {
+    cursor: pointer;
+    color: white;
+    background-color: #6e9c9f;
+    padding: 7px 14px;
+
+    &:hover {
+      background-color: #509498;
+    }
+  }
+}
+
+.promo-drop__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  min-width: 180px;
+}
+
+.drop {
+  cursor: pointer;
+  margin-left: 10px;
+  color: white;
+  background-color: #6e9c9f;
+  padding: 7px 14px;
+}
+
+.crossOut {
+  text-decoration: line-through;
+}
+
+.discount-price {
+  position: absolute;
+  top: 70px;
+  font-weight: 500;
+  font-size: 25px;
+}
+
+.applied-coupons {
+  position: relative;
+  min-width: 180px;
+  .applied-promo-title {
+    padding-bottom: 4px;
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+  }
+
+  .promos {
+    position: absolute;
   }
 }
