@@ -3,13 +3,13 @@ import Validator from '../../utils/Validator';
 
 export default class Modal {
   constructor() {
-    this.buyBtn = document.querySelector('.buy__order');
     this.root = document.getElementById('root');
   }
 
   listener() {
     let modal;
-    this.buyBtn.addEventListener('click', () => {
+    const buyBtn = document.querySelector('.buy__order');
+    buyBtn.addEventListener('click', () => {
       modal = this.createModal(modal);
       const form = document.querySelector('.form');
       const cardNumber = form.querySelector('.input-card-number'),

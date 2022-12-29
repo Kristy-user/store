@@ -9,9 +9,12 @@ export default class CartComponent {
   listenCart(allData) {
     this.setCurrentAmountHeader();
     const allProducts = document.querySelector('.products-items');
-    allProducts.addEventListener('click', (e) => {
+    const productDetail = document.querySelector('.product-wrapper');
+    const currentContent = allProducts ? allProducts : productDetail;
+    currentContent.addEventListener('click', (e) => {
       this.cartData = this.storage.get('inCart') || [];
       const currentId = Number(e.target.id);
+      console.log;
       const checkedProduct = allData.find((item) => item.id === currentId);
       if (e.target.className === 'card__buttons-add') {
         checkedProduct.count = 1;
@@ -29,6 +32,7 @@ export default class CartComponent {
       this.setCurrentAmountHeader();
     });
   }
+
   listenCount() {
     const cartList = document.querySelector('.basket-list');
     cartList.addEventListener('click', (e) => {
@@ -112,6 +116,6 @@ export default class CartComponent {
     target.textContent = `${text}`;
     target.classList.toggle('card__buttons-remove');
     target.classList.toggle('card__buttons-add');
-    addedItem.classList.toggle('in-cart');
+    addedItem ? addedItem.classList.toggle('in-cart') : null;
   }
 }

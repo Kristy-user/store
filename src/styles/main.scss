@@ -1,7 +1,9 @@
+@import './product-details.scss';
 @import './dual-slider.scss';
 @import './basket.scss';
 @import './sort.scss';
 @import './modal.scss';
+
 * {
   padding: 0;
   margin: 0;
@@ -247,6 +249,7 @@ header {
       margin-bottom: 25px;
       padding: 20px 0;
       flex-direction: column;
+      justify-content: space-between;
       border: 1px solid rgba(241, 234, 220, 1);
       min-width: 300px;
       cursor: pointer;
@@ -264,6 +267,7 @@ header {
         & .card__body-title {
           font-size: 22px;
           margin: 15px 0;
+          max-width: 280px;
         }
 
         & .card__body-photo {
@@ -293,19 +297,18 @@ header {
         font-size: 24px;
         font-weight: 700;
       }
-
-      .card__link-details,
-      .card__buttons-add,
-      .card__buttons-remove {
-        margin: 10px 0;
-        background: #6e9c9f;
-        color: white;
-        padding: 10px 20px;
-        cursor: pointer;
-        &:hover {
-          background-color: #509498;
-        }
-      }
+    }
+  }
+  .card__link-details,
+  .card__buttons-add,
+  .card__buttons-remove {
+    margin: 10px 0;
+    background: #6e9c9f;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    &:hover {
+      background-color: #509498;
     }
   }
   .error-page {
