@@ -17,7 +17,10 @@ class FilterListener {
         );
         const checkedValues = [];
 
-        allCheckedInputs.forEach((name) => checkedValues.push(name.value));
+        allCheckedInputs.forEach((name) => {
+          console.log(name.value);
+          checkedValues.push(name.value);
+        });
 
         this.storage.set(`${e.target.name}`, checkedValues);
         const currentFilters = this.storage.getAll();

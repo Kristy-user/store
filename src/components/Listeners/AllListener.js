@@ -5,6 +5,7 @@ import FilterListener from './FilterListener';
 import PriceFilterListener from './PriceFilterSlider';
 import Search from './SearchListener';
 import StockFilterListener from './StockFilterSlider';
+import UrlCopyListener from './UrlCopyListener';
 
 class AllListener {
   constructor() {
@@ -14,6 +15,7 @@ class AllListener {
     this.sort = new Sort();
     this.filters = new FilterListener();
     this.cart = new CartComponent();
+    this.copyUrl = new UrlCopyListener();
   }
 
   listenDynamicData = (minPrice, maxPrice, minStock, maxStock, count) => {
@@ -25,6 +27,7 @@ class AllListener {
     this.filters.listen();
     this.search.listenSearch();
     this.cart.listenCart(data);
+    this.copyUrl.listen();
     Header.listener();
     if (location.hash < 1) {
       this.clearFilters();
