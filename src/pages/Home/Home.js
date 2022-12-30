@@ -39,7 +39,11 @@ class Home extends AbstractView {
         } else if (key === 'search') {
           return (
             item.title.toLowerCase().includes(this.currentFilters[key][0]) ||
-            item.description.toLowerCase().includes(this.currentFilters[key][0])
+            item.description
+              .toLowerCase()
+              .includes(this.currentFilters[key][0]) ||
+            String(item.price) === this.currentFilters[key][0] ||
+            String(item.count) === this.currentFilters[key][0]
           );
         } else if (key === 'sort') {
           return item;
