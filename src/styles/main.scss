@@ -317,7 +317,7 @@ header {
 
         & .card__body-photo {
           margin-top: 10px;
-          width: 90%;
+          max-width: 90%;
           height: 180px;
           object-fit: cover;
           background-size: contain;
