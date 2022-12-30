@@ -1,46 +1,17 @@
 export const homeRoot = `<section class="products container">
 <aside class="products__filter">
   <div class="filters__box">
+  <div>
+   <h3>Category</h3>
     <div id="category">
-      <h3>Category</h3>
-      <div>
-        <input
-          type="checkbox"
-          id="smartphones"
-          name="category"
-          value="smartphones"
-        /><label class="filters__box-label" for="smartphones"
-          >Smartphones</label
-        >
-      </div>
-      <div>
-        <input
-          type="checkbox"
-          id="laptops"
-          name="category"
-          value="laptops"
-        /><label class="filters__box-label" for="laptops">Laptops</label>
-      </div>
+       </div>
     </div>
-    <div id="brand">
-      <div>
-        <h3>Brand</h3>
-        <input type="checkbox" id="apple" name="brand" value="apple" /><label
-          class="filters__box-label"
-          for="apple"
-          >Apple</label
-        >
-      </div>
-      <div>
-        <input
-          type="checkbox"
-          id="samsung"
-          name="brand"
-          value="samsung"
-        /><label class="filters__box-label" for="samsung">Samsung</label>
-      </div>
+    <div>
+      <h3>Brand</h3>
+       <div id="brand">
+        </div>
     </div>
-    <div id="price">
+      <div id="price">
       <h3>Price</h3>
       <div class="price__content">
         <div class="value-field">

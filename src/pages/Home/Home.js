@@ -3,7 +3,7 @@ import { AbstractView } from '../AbstractView.js';
 import RouterHelper from '../../utils/RouterHelper.js';
 import { homeRoot } from './htmlData.js';
 
-import AllListener from '../../components/Filters/AllListener.js';
+import AllListener from '../../components/Listeners/AllListener.js';
 
 class Home extends AbstractView {
   constructor(params) {
@@ -46,7 +46,9 @@ class Home extends AbstractView {
         } else if (key === 'view') {
           return item;
         }
-        return this.currentFilters[key].includes(item[key].toLowerCase());
+        return this.currentFilters[key].includes(
+          item[key].split(' ').join('-').toLowerCase()
+        );
       });
       if (key === 'sort') {
         this.sortData(productsList);
@@ -77,13 +79,52 @@ class Home extends AbstractView {
       productsList.length,
       productsList
     );
-    this.copyUrl();
   }
 
   render(root, data) {
+    const categories = new Set(data.products.map((item) => item.category));
+    const brands = new Set(
+      data.products
+        .filter((item) => !!item.title)
+        .map((item) => item.brand.toLowerCase())
+    );
     root.innerHTML = homeRoot;
+    this.renderFilterData(categories, brands);
     this.listener.listenStaticData(data.products);
     this.afterRootRender(data);
+  }
+
+  renderFilterData(categories, brands) {
+    const categoryContainer = document.querySelector('#category');
+    const brandContainer = document.querySelector('#brand');
+    categories.forEach((item) => {
+      const div = document.createElement('div');
+      div.innerHTML = `
+  <input
+    type="checkbox"
+    id=${item.toLowerCase()}
+    name="category"
+    value=${item.toLowerCase()}
+  /><label class="filters__box-label" for=${item.toLowerCase()}
+    >${
+      item[0].toUpperCase() + item.slice(1, item.length).toLowerCase()
+    }</label>`;
+      categoryContainer.append(div);
+    });
+    brands.forEach((item) => {
+      const div = document.createElement('div');
+      div.innerHTML = `
+  <input
+    type="checkbox"
+    id=${item.toLowerCase()}
+    name="brand"
+    value=${item.split(' ').join('-')}
+  /><label class="filters__box-label" for=${item.toLowerCase()}
+    >${
+      item[0].toUpperCase() + item.slice(1, item.length).toLowerCase()
+    }</label>`;
+      brandContainer.append(div);
+    });
   }
   sortData(data) {
     switch (this.currentFilters['sort'][0]) {
@@ -102,25 +143,6 @@ class Home extends AbstractView {
       default:
         break;
     }
-  }
-
-  copyUrl() {
-    const copyBtn = document.querySelector('.copy');
-    copyBtn.addEventListener('click', () => {
-      let tempInput = document.createElement('input');
-
-      copyBtn.textContent = 'Copied!';
-      setTimeout(() => {
-        copyBtn.textContent = 'Copy link';
-      }, 600);
-
-      tempInput.value = window.location.href;
-      copyBtn.parentNode.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand('copy');
-
-      tempInput.parentNode.removeChild(tempInput);
-    })
   }
 }
 export { Home };

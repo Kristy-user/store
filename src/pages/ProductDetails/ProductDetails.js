@@ -4,7 +4,7 @@ import ProductDetailsCard from '../../components/ProductDetailsCard';
 import Header from '../../components/Header';
 import CartComponent from '../../components/CartComponent';
 import Modal from '../Basket/ModalWindow';
-import PhotoListener from '../../components/Filters/PhotoListener';
+import PhotoListener from '../../components/Listeners/PhotoListener';
 
 class ProductDetails extends AbstractView {
   constructor(params) {

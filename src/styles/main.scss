@@ -54,7 +54,6 @@ html {
 }
 
 body {
-  // background: #e5e5e5;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -160,15 +159,43 @@ header {
       background: #fff;
       & > div {
         margin: 20px auto;
+
         & > div {
           margin: 10px 0;
         }
       }
+      #category,
+      #brand {
+        max-height: 190px;
+        overflow-y: auto;
+        &::-webkit-scrollbar {
+          width: 6px;
+          background-color: #f1eadc;
+          border-radius: 6px;
+          cursor: pointer;
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: #6e9c9f;
+          border-radius: 6px;
+          max-height: 10px;
+        }
+        &::-webkit-scrollbar-thumb {
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+      }
+      #price,
+      #stock {
+        margin-bottom: 50px;
+      }
       h3 {
-        margin: 15px 0;
+        background-color: #f1eadc;
+        margin-top: 25px 0;
+        padding: 5px;
         text-align: center;
       }
-
+      label {
+        margin-top: 10px;
+      }
       input[type='checkbox'] {
         padding: 0;
         height: initial;
@@ -241,7 +268,7 @@ header {
         font-size: 17px;
         color: white;
         cursor: pointer;
-      
+
         &:hover {
           background-color: #509498;
         }
