@@ -41,7 +41,7 @@ class ProductDetails extends AbstractView {
     productItemContainer.append(productItem);
     Header.listener();
     this.cart.listenCart(data.products);
-    this.modalWindow.listener();
+    this.modalWindow.listener(data.products);
     this.photo.listenPhoto();
   }
   render(root, data) {

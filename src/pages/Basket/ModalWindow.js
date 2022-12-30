@@ -6,10 +6,14 @@ export default class Modal {
     this.root = document.getElementById('root');
   }
 
-  listener() {
+  listener(data) {
     let modal;
     const buyBtn = document.querySelector('.buy__order');
     buyBtn.addEventListener('click', () => {
+      const hash = location.hash;
+      if (hash !== '#cart') {
+        this.buyFromProductDetails(data);
+      }
       modal = this.createModal(modal);
       const form = document.querySelector('.form');
       const cardNumber = form.querySelector('.input-card-number'),
@@ -87,7 +91,7 @@ export default class Modal {
 
     window.addEventListener('click', (e) => {
       if (e.target.className === 'modal') {
-        modal.remove();
+        e.target.remove();
       }
     });
   }
@@ -252,6 +256,29 @@ export default class Modal {
     cvv.value = cvv.value.replace(/[^0-9]+/g, '');
     if (cvv.value.length > 3) {
       cvv.value = cvv.value.slice(0, -1);
+    }
+  }
+  buyFromProductDetails(data) {
+    const currentId = location.hash.split('/').slice(-1)[0];
+    window.location.hash = '#cart';
+    const itemsInCart = JSON.parse(localStorage.getItem('cart'));
+    if (itemsInCart) {
+      if (
+        itemsInCart.inCart.map((item) => item.id).includes(Number(currentId))
+      ) {
+      } else {
+        const previousProducts =
+          JSON.parse(localStorage.getItem('cart')).inCart || [];
+        const currentProduct = data.find(
+          (item) => item.id === Number(currentId)
+        );
+        currentProduct.count = 1;
+        previousProducts.push(currentProduct);
+        const newData = JSON.stringify({ ['inCart']: previousProducts });
+        localStorage.setItem('cart', newData);
+      }
+    }
+    {
     }
   }
 }
