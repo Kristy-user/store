@@ -2,7 +2,7 @@ export default interface IData {
     products: IProduct,
 }
 
-interface IProduct {
+export interface IProduct {
     brand: string,
     category: string,
     description: string,

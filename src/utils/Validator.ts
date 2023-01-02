@@ -13,7 +13,7 @@ export default class Validator {
   }
 
   static isValidAddress(address: string) {
-    const addressArray = address.split(' ');
+    const addressArray: string[] = address.split(' ');
     if (addressArray.length < 3) return false;
     return (
       addressArray.filter((part) => part.length > 3).length ===
@@ -37,7 +37,7 @@ export default class Validator {
   }
 
   static isValidValidThru(validThru: string) {
-    const validThruArray = validThru.split('/');
+    const validThruArray: string[] = validThru.split('/');
 
     if (validThruArray.length === 1) return false;
 
