@@ -7,7 +7,56 @@
     font-weight: 500;
     font-size: 55px;
   }
+  .num {
+    display: none;
+  }
+  .pagination-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    color: #509498;
+  }
+  .pagination-limit {
+    font-weight: 600;
+    font-size: 18px;
+    margin: 10px 0;
+    & input {
+      max-width: 50px;
+      text-align: center;
+      border: 1px solid #509498;
+    }
+  }
 
+  .pagination {
+    div {
+      display: inline-block;
+      margin-right: 10px;
+      cursor: pointer;
+      background-color: #f1eadc;
+      text-align: center;
+      width: 20px;
+      color: #509498;
+      &:hover,
+      &.active {
+        color: rgb(253, 253, 253);
+        background-color: #509498;
+      }
+    }
+    .prev0,
+    .next-last {
+      &:hover {
+        color: #509498;
+        background-color: #f1eadc;
+      }
+    }
+    .prev0,
+    .prev,
+    .next-last,
+    .next {
+      font-size: 12px;
+    }
+  }
   .basket-products {
     margin-top: 50px;
     display: grid;

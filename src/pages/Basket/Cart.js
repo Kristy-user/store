@@ -2,31 +2,41 @@ import ProductCards from '../../components/ProductCards';
 import CartComponent from '../../components/CartComponent';
 import { AbstractView } from '../AbstractView';
 import { cartLayout } from './htmlCart';
-import Header from '../../components/Header';
 import Modal from './ModalWindow';
 import PromoCode from './PromoCode';
+import Storage from '../../utils/Storage';
 
 class Cart extends AbstractView {
   constructor(params) {
     super(params);
-    this.productId = params;
+    this.params = params;
     this.setTitle('Basket');
     this.productsView = new ProductCards();
     this.cart = new CartComponent();
+    this.storage = new Storage('cart');
   }
 
-  executeViewScript() {
+  fillCartList() {
     const currentCart = this.cart.getCart();
-    this.cart.setCurrentAmountHeader();
-    const cartWrapper = document.querySelector('.basket-list');
-    document.querySelector('.order').classList.remove('hidden');
     if (currentCart && currentCart.length > 0) {
-      const content = currentCart.map(
+      this.cart.pagination();
+      const limit = document.querySelector('#limit').value;
+      const currentPage = document.querySelector(
+        '.pagination .active'
+      ).textContent;
+      const start = currentPage > 1 ? limit * currentPage - limit : 0;
+      let lastIndex = currentPage * limit - limit;
+      const end = Number(start) + Number(limit);
+      const dataToShow = currentCart.slice(start, end);
+      this.cart.setCurrentAmountHeader();
+      const cartWrapper = document.querySelector('.basket-list');
+      document.querySelector('.order').classList.remove('hidden');
+      const content = dataToShow.map(
         (item, i) =>
           `<li class="basket-list-item">
           <div  class="basket-item-container">
           <div class="basket-item-number">
-          <p >${i + 1}.</p></div>
+          <p >${currentPage > 1 ? ++lastIndex : i + 1}.</p></div>
            <div id=${
              item.id
            }  class = "basket-item-photo" style = background-image:url('${
@@ -67,13 +77,12 @@ class Cart extends AbstractView {
       cartSection.append(textForEmpty);
       document.querySelector('.order').classList.add('hidden');
     }
-    Header.listener();
     this.cart.listenCount();
     this.cart.listenCardDetails();
   }
   render(root) {
     root.innerHTML = cartLayout;
-    this.executeViewScript();
+    this.fillCartList();
     this.afterRootRender();
   }
 

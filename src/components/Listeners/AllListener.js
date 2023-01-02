@@ -1,5 +1,4 @@
 import CartComponent from '../CartComponent';
-import Header from '../Header';
 import Sort from '../Sort/Sort';
 import FilterListener from './FilterListener';
 import PriceFilterListener from './PriceFilterSlider';
@@ -28,7 +27,6 @@ class AllListener {
     this.search.listenSearch();
     this.cart.listenCart(data);
     this.copyUrl.listen();
-    Header.listener();
     if (location.hash < 1) {
       this.clearFilters();
     }

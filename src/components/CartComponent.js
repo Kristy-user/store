@@ -1,4 +1,5 @@
 import { Cart } from '../pages/Basket/Cart';
+import RouterHelper from '../utils/RouterHelper';
 import Storage from '../utils/Storage';
 
 export default class CartComponent {
@@ -116,5 +117,88 @@ export default class CartComponent {
     target.classList.toggle('card__buttons-remove');
     target.classList.toggle('card__buttons-add');
     addedItem ? addedItem.classList.toggle('in-cart') : null;
+  }
+  pagination() {
+    const currentLimit =
+      this.storage.get('limit') && this.storage.get('limit')[0]
+        ? this.storage.get('limit')[0]
+        : 4;
+    let currentPage =
+      this.storage.get('page') && this.storage.get('page')[0]
+        ? this.storage.get('page')[0]
+        : 1;
+    const limitElement = document.querySelector('.pagination-limit');
+    limitElement.innerHTML = `<label for="limit">Limit: </label>
+        <input id="limit" type="number" value="4" min="1"/>`;
+
+    const inputLimit = document.querySelector('#limit');
+    const paginator = document.querySelector('.pagination');
+
+    inputLimit.value = currentLimit;
+    const countItems = this.getCart().length;
+    const itemsOnPage = inputLimit.value;
+    const countPages = Math.ceil(countItems / itemsOnPage);
+    if (countPages < currentPage) {
+      currentPage = countPages;
+      this.storage.set('page', [currentPage]);
+    }
+    let page = '';
+    for (let i = 0; i < countPages; i++) {
+      page += `<div id="page${i + 1}">${i + 1}</div>`;
+    }
+    paginator.innerHTML = page;
+    const prev =
+      currentPage > 1
+        ? `<div class="prev"><</div>`
+        : `<div class="prev0"><</div>`;
+    const next =
+      currentPage < countPages
+        ? `<div class="next">></div> `
+        : `<div class="next-last">></div>`;
+    paginator.insertAdjacentHTML('afterbegin', prev);
+    paginator.insertAdjacentHTML('beforeend', next);
+
+    paginator.querySelector(`#page${currentPage}`).classList.add('active');
+    paginator.addEventListener('click', (e) => {
+      if (
+        e.target.classList !== 'prev0' ||
+        e.target.classList !== 'next-last'
+      ) {
+        if (e.target.id) {
+          paginator
+            .querySelectorAll('div')
+            .forEach((item) => item.classList.remove('active'));
+          e.target.classList.add('active');
+          const checkedPage = e.target.textContent;
+          this.checkPage(checkedPage);
+        } else if (e.target.classList.contains('prev')) {
+          const page = Number(currentPage) - 1;
+          console.log(page);
+          this.checkPage(page);
+        } else if (e.target.classList.contains('next')) {
+          const page = Number(currentPage) + 1;
+          this.checkPage(page);
+        }
+      }
+    });
+    inputLimit.addEventListener('input', (e) => {
+      this.storage.set('limit', [e.target.value]);
+      const currentFilters = RouterHelper.setFilter(location.hash);
+      const prevHash = location.hash.includes('page')
+        ? `page=${currentFilters.page[0]}&`
+        : '';
+      window.location.hash = `#cart/?${prevHash}limit=${e.target.value}`;
+    });
+  }
+  checkPage(page) {
+    const currentFilters = RouterHelper.setFilter(location.hash);
+    this.storage.set('page', [page]);
+    const prevHash = location.hash.includes('limit')
+      ? `limit=${currentFilters.limit[0]}&`
+      : '';
+    window.location.hash = `#cart/?${prevHash}page=${page}`;
+  }
+  clearStorage() {
+    ['limit', 'page'].forEach((item) => this.storage.drop(item));
   }
 }

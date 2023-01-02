@@ -4,6 +4,7 @@ import RouterHelper from '../../utils/RouterHelper.js';
 import { homeRoot } from './htmlData.js';
 
 import AllListener from '../../components/Listeners/AllListener.js';
+import CartComponent from '../../components/CartComponent.js';
 
 class Home extends AbstractView {
   constructor(params) {
@@ -12,6 +13,7 @@ class Home extends AbstractView {
     this.productsView = new ProductCards();
     this.listener = new AllListener();
     this.currentFilters = RouterHelper.setFilter(this.params);
+    this.cart = new CartComponent();
     this.minPrice = '';
     this.maxPrice = '';
     this.minStock = '';
@@ -61,6 +63,7 @@ class Home extends AbstractView {
     return productsList;
   }
   afterRootRender(data) {
+    this.cart.clearStorage();
     const productsList = this.getCategoryProducts(data.products);
     const productsElement = this.productsView.draw(productsList);
     const productListContainer = document.querySelector('.products-items');

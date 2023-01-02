@@ -1,7 +1,6 @@
 import { AbstractView } from '../AbstractView';
 import RouterHelper from '../../utils/RouterHelper';
 import ProductDetailsCard from '../../components/ProductDetailsCard';
-import Header from '../../components/Header';
 import CartComponent from '../../components/CartComponent';
 import Modal from '../Basket/ModalWindow';
 import PhotoListener from '../../components/Listeners/PhotoListener';
@@ -39,7 +38,6 @@ class ProductDetails extends AbstractView {
     const productItem = this.getItem(data);
     const productItemContainer = document.querySelector('.product-details');
     productItemContainer.append(productItem);
-    Header.listener();
     this.cart.listenCart(data.products);
     this.modalWindow.listener(data.products);
     this.photo.listenPhoto();

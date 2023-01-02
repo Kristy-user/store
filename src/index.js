@@ -1,3 +1,4 @@
+import Header from './components/Header';
 import './styles/main.scss';
 import ProductsData from './utils/ProductsData';
 import Router from './utils/Router';
@@ -17,4 +18,5 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   routing.router();
+  Header.listener();
 });
