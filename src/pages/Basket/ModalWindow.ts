@@ -304,28 +304,28 @@ export default class Modal {
     }
   }
   buyFromProductDetails(data: IData) {
-    // const currentId = location.hash.split('/').slice(-1)[0];
-    // window.location.hash = '#cart';
-    // const itemsInCart = JSON.parse(localStorage.getItem('cart') as string);
-    // if (itemsInCart) {
-    //   if (
-    //     itemsInCart.inCart.map((item: IProduct) => item.id).includes(Number(currentId))
-    //   ) {
-    //   } else {
-    //     const previousProducts =
-    //       JSON.parse(localStorage.getItem('cart') as string).inCart || [];
-    //     console.log(data);
+    const currentId = location.hash.split('/').slice(-1)[0];
+    window.location.hash = '#cart';
+    const itemsInCart = JSON.parse(localStorage.getItem('cart') as string);
+    if (itemsInCart) {
+      if (
+        itemsInCart.inCart.map((item: IProduct) => item.id).includes(Number(currentId))
+      ) {
+      } else {
+        const previousProducts =
+          JSON.parse(localStorage.getItem('cart') as string).inCart || [];
+        console.log(data);
         
-    //     const currentProduct = data.find(
-    //       (item: IProduct) => item.id === Number(currentId)
-    //     );
-    //     currentProduct.count = 1;
-    //     previousProducts.push(currentProduct);
-    //     const newData = JSON.stringify({ ['inCart']: previousProducts });
-    //     localStorage.setItem('cart', newData);
-    //   }
-    // }
-    // {
-    // }
+        const currentProduct = data.find(
+          (item: IProduct) => item.id === Number(currentId)
+        );
+        currentProduct.count = 1;
+        previousProducts.push(currentProduct);
+        const newData = JSON.stringify({ ['inCart']: previousProducts });
+        localStorage.setItem('cart', newData);
+      }
+    }
+    {
+    }
   }
 }
