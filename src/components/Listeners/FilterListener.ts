@@ -85,7 +85,7 @@ class FilterListener {
           `[name=${filter}]`
         );
         inputs.forEach((input) => {
-          if (currentFilters[filter].includes(input.value)) {
+          if ((currentFilters[filter] as string[]).includes(input.value)) {
             input.checked = true;
           }
         });
