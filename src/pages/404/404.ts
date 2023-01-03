@@ -4,6 +4,7 @@ class Error extends AbstractView {
   constructor(params: string) {
     super(params);
   }
+  afterRootRender(): void {}
   render(root: HTMLElement) {
     const div: HTMLDivElement = document.createElement('div');
     div.classList.add('error-page');

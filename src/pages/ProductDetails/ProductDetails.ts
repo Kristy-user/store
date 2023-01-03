@@ -30,7 +30,7 @@ class ProductDetails extends AbstractView {
     return div;
   }
 
-  getItem(data: IData): void | HTMLDivElement {
+  getItem(data: IData): void | HTMLDivElement | DocumentFragment | null {
     const id = RouterHelper.checkId(this.params);
     if (id) {
       const item = data.products.filter((x) => x.id === id);

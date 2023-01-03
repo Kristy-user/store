@@ -1,12 +1,11 @@
-import ProductCards from '../../components/ProductCards.js';
-import { AbstractView } from '../AbstractView.js';
-import RouterHelper from '../../utils/RouterHelper.js';
-import { homeRoot } from './htmlData.js';
-
-import AllListener from '../../components/Listeners/AllListener.js';
-import CartComponent from '../../components/CartComponent.js';
-import IData from '../../interfaces/data.js';
-import IFilters from '../../utils/interface.js';
+import ProductCards from '../../components/ProductCards';
+import { AbstractView } from '../AbstractView';
+import RouterHelper from '../../utils/RouterHelper';
+import { homeRoot } from './htmlData';
+import AllListener from '../../components/Listeners/AllListener';
+import CartComponent from '../../components/CartComponent';
+import IData from '../../interfaces/data';
+import IFilters from '../../utils/interface';
 
 class Home extends AbstractView {
   private productsView: ProductCards;
@@ -51,10 +50,12 @@ class Home extends AbstractView {
           );
         } else if (key === 'search') {
           return (
-            item.title.toLowerCase().includes(this.currentFilters[key][0]) ||
+            item.title
+              .toLowerCase()
+              .includes(String(this.currentFilters[key][0])) ||
             item.description
               .toLowerCase()
-              .includes(this.currentFilters[key][0]) ||
+              .includes(String(this.currentFilters[key][0])) ||
             String(item.price) === this.currentFilters[key][0] ||
             String(item.count) === this.currentFilters[key][0]
           );

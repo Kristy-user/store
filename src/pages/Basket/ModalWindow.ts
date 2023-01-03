@@ -9,25 +9,27 @@ export default class Modal {
     this.root = document.getElementById('root') as HTMLDivElement;
   }
 
-  listener(data: IData) {
+  listener(data?: IData['products']) {
     let modal: HTMLDivElement;
     const buyBtn = document.querySelector('.buy__order') as HTMLButtonElement;
     buyBtn.addEventListener('click', () => {
       const hash = location.hash;
-      console.log(hash);
-      
       if (hash !== '#cart') {
         this.buyFromProductDetails(data);
       }
       modal = this.createModal();
       const form = document.querySelector('.form') as HTMLFormElement;
-      const cardNumber = form.querySelector('.input-card-number') as HTMLInputElement,
+      const cardNumber = form.querySelector(
+          '.input-card-number'
+        ) as HTMLInputElement,
         validThru = form.querySelector('.input-valid-thru') as HTMLInputElement,
         inputName = form.querySelector('.input-name') as HTMLInputElement,
         inputNumber = form.querySelector('.input-number') as HTMLInputElement,
         inputAddress = form.querySelector('.input-address') as HTMLInputElement,
         inputEmail = form.querySelector('.input-email') as HTMLInputElement,
-        inputValidThru = form.querySelector('.input-valid-thru') as HTMLInputElement,
+        inputValidThru = form.querySelector(
+          '.input-valid-thru'
+        ) as HTMLInputElement,
         inputCvv = form.querySelector('.input-cvv') as HTMLInputElement;
 
       form.addEventListener('submit', (event) => {
@@ -52,7 +54,10 @@ export default class Modal {
         inputNumber.addEventListener('focus', function (e: Event) {
           const currentTarget = e.target as HTMLInputElement;
           const currentValue = currentTarget.value;
-          (e.target as HTMLInputElement).value = `+ ${currentValue.replace(/[^\d.]/g, '')}`;
+          (e.target as HTMLInputElement).value = `+ ${currentValue.replace(
+            /[^\d.]/g,
+            ''
+          )}`;
           // currentTarget.value = `+ ${currentValue.replace(/[^\d.]/g, '')}`;
         });
       }
@@ -118,7 +123,7 @@ export default class Modal {
           } else {
             inputCvv.classList.remove('error');
           }
-        }); 
+        });
       }
     });
 
@@ -160,7 +165,9 @@ export default class Modal {
     if (isValid) {
       localStorage.clear();
       window.location.hash = '';
-      const modalContent = document.querySelector('.modal-content') as HTMLDivElement;
+      const modalContent = document.querySelector(
+        '.modal-content'
+      ) as HTMLDivElement;
       modalContent.innerHTML = '';
       modalContent.style.top = '25%';
       modalContent.innerHTML =
@@ -196,7 +203,9 @@ export default class Modal {
       cardNumber.value = cardNumber.value.slice(0, -1);
     }
 
-    let bankCardImg = document.querySelector('.bankcard-img') as HTMLImageElement;
+    let bankCardImg = document.querySelector(
+      '.bankcard-img'
+    ) as HTMLImageElement;
     if (Number(cardNumber.value[0]) === 4) {
       bankCardImg.src = './assets/visa.png';
     } else if (Number(cardNumber.value[0]) === 5) {
@@ -210,64 +219,92 @@ export default class Modal {
   validEmail(input: HTMLInputElement) {
     if (!Validator.isValidEmail(input.value)) {
       input.classList.add('error');
-      (document.querySelector('.error-email') as HTMLDivElement).classList.add('show');
+      (document.querySelector('.error-email') as HTMLDivElement).classList.add(
+        'show'
+      );
     } else {
       input.classList.remove('error');
-      (document.querySelector('.error-email') as HTMLDivElement).classList.remove('show');
+      (
+        document.querySelector('.error-email') as HTMLDivElement
+      ).classList.remove('show');
     }
   }
   validPhone(input: HTMLInputElement) {
     if (!Validator.isValidPhone(input.value)) {
       input.classList.add('error');
-      (document.querySelector('.error-number') as HTMLDivElement).classList.add('show');
+      (document.querySelector('.error-number') as HTMLDivElement).classList.add(
+        'show'
+      );
     } else {
       input.classList.remove('error');
-      (document.querySelector('.error-number') as HTMLDivElement).classList.remove('show');
+      (
+        document.querySelector('.error-number') as HTMLDivElement
+      ).classList.remove('show');
     }
   }
   validName(input: HTMLInputElement) {
     if (!Validator.isValidName(input.value)) {
       input.classList.add('error');
-      (document.querySelector('.error-name') as HTMLDivElement).classList.add('show');
+      (document.querySelector('.error-name') as HTMLDivElement).classList.add(
+        'show'
+      );
     } else {
       input.classList.remove('error');
-      (document.querySelector('.error-name') as HTMLDivElement).classList.remove('show');
+      (
+        document.querySelector('.error-name') as HTMLDivElement
+      ).classList.remove('show');
     }
   }
   validAddress(input: HTMLInputElement) {
     if (!Validator.isValidAddress(input.value)) {
       input.classList.add('error');
-      (document.querySelector('.error-address') as HTMLDivElement).classList.add('show');
+      (
+        document.querySelector('.error-address') as HTMLDivElement
+      ).classList.add('show');
     } else {
       input.classList.remove('error');
-      (document.querySelector('.error-address') as HTMLDivElement).classList.remove('show');
+      (
+        document.querySelector('.error-address') as HTMLDivElement
+      ).classList.remove('show');
     }
   }
   validCardNumber(input: HTMLInputElement) {
     if (!Validator.isValidCardNumber(input.value)) {
       input.classList.add('error');
-      (document.querySelector('.error-card-number') as HTMLDivElement).classList.add('show');
+      (
+        document.querySelector('.error-card-number') as HTMLDivElement
+      ).classList.add('show');
     } else {
       input.classList.remove('error');
-      (document.querySelector('.error-card-number') as HTMLDivElement).classList.remove('show');
+      (
+        document.querySelector('.error-card-number') as HTMLDivElement
+      ).classList.remove('show');
     }
   }
   validThru(input: HTMLInputElement) {
     if (!Validator.isValidValidThru(input.value)) {
       input.classList.add('error');
-      (document.querySelector('.error-thru') as HTMLDivElement).classList.add('show');
+      (document.querySelector('.error-thru') as HTMLDivElement).classList.add(
+        'show'
+      );
     } else {
       input.classList.remove('error');
-      (document.querySelector('.error-thru') as HTMLDivElement).classList.remove('show');
+      (
+        document.querySelector('.error-thru') as HTMLDivElement
+      ).classList.remove('show');
     }
   }
   validCvv(input: HTMLInputElement) {
     if (!Validator.isValidCvv(input.value)) {
       input.classList.add('error');
-      (document.querySelector('.error-cvv') as HTMLDivElement).classList.add('show');
+      (document.querySelector('.error-cvv') as HTMLDivElement).classList.add(
+        'show'
+      );
     } else {
       input.classList.remove('error');
-      (document.querySelector('.error-cvv') as HTMLDivElement).classList.remove('show');
+      (document.querySelector('.error-cvv') as HTMLDivElement).classList.remove(
+        'show'
+      );
     }
   }
   validThruHandler(e: Event, validThru: HTMLInputElement) {
@@ -303,26 +340,28 @@ export default class Modal {
       cvv.value = cvv.value.slice(0, -1);
     }
   }
-  buyFromProductDetails(data: IData) {
+  buyFromProductDetails(data?: IData['products']) {
     const currentId = location.hash.split('/').slice(-1)[0];
     window.location.hash = '#cart';
     const itemsInCart = JSON.parse(localStorage.getItem('cart') as string);
     if (itemsInCart) {
       if (
-        itemsInCart.inCart.map((item: IProduct) => item.id).includes(Number(currentId))
+        itemsInCart.inCart
+          .map((item: IProduct) => item.id)
+          .includes(Number(currentId))
       ) {
       } else {
         const previousProducts =
           JSON.parse(localStorage.getItem('cart') as string).inCart || [];
-        console.log(data);
-        
-        const currentProduct = data.find(
-          (item: IProduct) => item.id === Number(currentId)
-        );
-        currentProduct.count = 1;
-        previousProducts.push(currentProduct);
-        const newData = JSON.stringify({ ['inCart']: previousProducts });
-        localStorage.setItem('cart', newData);
+        if (data) {
+          const currentProduct = data.find(
+            (item: IProduct) => item.id === Number(currentId)
+          );
+          currentProduct ? (currentProduct.count = 1) : null;
+          previousProducts.push(currentProduct);
+          const newData = JSON.stringify({ ['inCart']: previousProducts });
+          localStorage.setItem('cart', newData);
+        }
       }
     }
     {

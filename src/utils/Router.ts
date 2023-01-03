@@ -7,7 +7,7 @@ import ProductsData from './ProductsData';
 
 export interface Path {
   path: string;
-  view: Home | ProductDetails | Cart;
+  view: typeof Home | typeof ProductDetails | typeof Cart | typeof Error;
 }
 
 class Router {
@@ -51,12 +51,13 @@ class Router {
         : new Error(hash);
     if ((pathInd === 0 || pathInd === 2) && hash.length > 3 && productList) {
       productList.innerHTML = '';
-      await view.afterRootRender(currentProducts);
+      view.afterRootRender(currentProducts);
     } else {
       if (this.root) {
         this.root.innerHTML = '';
+
+        view.render(this.root, currentProducts);
       }
-      await view.render(this.root, currentProducts);
     }
   }
 

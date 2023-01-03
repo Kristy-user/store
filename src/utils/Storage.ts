@@ -1,3 +1,4 @@
+import { IProduct } from '../interfaces/data';
 import IFilters from './interface';
 
 class Storage {
@@ -7,13 +8,13 @@ class Storage {
     this.store = name;
     this.obj = this.getAll();
   }
-  set(key: string, value: string[]): void {
+  set(key: string, value: IProduct[] | string[]): void {
     const data = this.obj;
     data[key] = value;
     const newData = JSON.stringify(data);
     localStorage.setItem(this.store, newData);
   }
-  get(key: string): string[] {
+  get(key: string): string[] | IProduct[] {
     return this.obj[key];
   }
   drop(key: string): void {

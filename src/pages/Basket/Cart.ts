@@ -1,42 +1,49 @@
-import ProductCards from '../../components/ProductCards';
 import CartComponent from '../../components/CartComponent';
 import { AbstractView } from '../AbstractView';
 import { cartLayout } from './htmlCart';
 import Modal from './ModalWindow';
 import PromoCode from './PromoCode';
-import Storage from '../../utils/Storage';
+import IData, { IProduct } from '../../interfaces/data';
 
 class Cart extends AbstractView {
-  constructor(params) {
+  private cart: CartComponent;
+  constructor(params: string) {
     super(params);
     this.params = params;
     this.setTitle('Basket');
-    this.productsView = new ProductCards();
     this.cart = new CartComponent();
-    this.storage = new Storage('cart');
   }
-
-  fillCartList() {
+  fillCartList(): void {
     const currentCart = this.cart.getCart();
+    const orderEl: HTMLElement | null = document.querySelector('.order');
     if (currentCart && currentCart.length > 0) {
       this.cart.pagination();
-      const limit = document.querySelector('#limit').value;
-      const currentPage = document.querySelector(
+      const limit: HTMLInputElement | null = document.querySelector('#limit');
+      limit ? limit.value : null;
+      const currentPage: HTMLElement | null = document.querySelector(
         '.pagination .active'
-      ).textContent;
-      const start = currentPage > 1 ? limit * currentPage - limit : 0;
-      let lastIndex = currentPage * limit - limit;
-      const end = Number(start) + Number(limit);
+      );
+      currentPage ? currentPage.textContent : null;
+      const start: number =
+        Number(currentPage) > 1
+          ? Number(limit) * Number(currentPage) - Number(limit)
+          : 0;
+      let lastIndex: number =
+        Number(currentPage) * Number(limit) - Number(limit);
+      const end: number = Number(start) + Number(limit);
       const dataToShow = currentCart.slice(start, end);
       this.cart.setCurrentAmountHeader();
-      const cartWrapper = document.querySelector('.basket-list');
-      document.querySelector('.order').classList.remove('hidden');
-      const content = dataToShow.map(
+      const cartWrapper: HTMLElement | null =
+        document.querySelector('.basket-list');
+      orderEl ? orderEl.classList.remove('hidden') : null;
+      const content = (dataToShow as IProduct[]).map(
         (item, i) =>
           `<li class="basket-list-item">
           <div  class="basket-item-container">
           <div class="basket-item-number">
-          <p >${currentPage > 1 ? ++lastIndex : i + 1}.</p></div>
+          <p >${
+            currentPage && Number(currentPage) > 1 ? lastIndex : i + 1
+          }.</p></div>
            <div id=${
              item.id
            }  class = "basket-item-photo" style = background-image:url('${
@@ -62,34 +69,38 @@ class Cart extends AbstractView {
               <button class="basket-item-remove">-</button>
             </div>
             <div class="basket-item-total">
-              <p>$${item.count * item.price}.00</p>
+              <p>$${item.count ? item.count * item.price : 0}.00</p>
             </div>
           </div>
         </li>`
       );
-      cartWrapper.innerHTML = content.reduce((a, b) => a + b);
+      cartWrapper
+        ? (cartWrapper.innerHTML = content.reduce((a, b) => a + b))
+        : null;
     } else {
-      const cartSection = document.querySelector('.basket-products');
-      const textForEmpty = document.createElement('div');
+      const cartSection: HTMLElement | null =
+        document.querySelector('.basket-products');
+      const textForEmpty: HTMLDivElement = document.createElement('div');
       textForEmpty.classList.add('basket-empty');
       textForEmpty.textContent = 'Cart is empty';
-      cartSection.innerHTML = '';
-      cartSection.append(textForEmpty);
-      document.querySelector('.order').classList.add('hidden');
+      if (cartSection) {
+        cartSection.innerHTML = '';
+        cartSection.append(textForEmpty);
+      }
+      orderEl ? orderEl.classList.add('hidden') : null;
     }
     this.cart.listenCount();
     this.cart.listenCardDetails();
   }
-  render(root) {
+  render(root: HTMLElement, data?: IData): void {
     root.innerHTML = cartLayout;
     this.fillCartList();
-    this.afterRootRender();
+    this.afterRootRender(data);
   }
-
-  afterRootRender() {
-    const modalWindow = new Modal();
-    modalWindow.listener();
-    const promo = new PromoCode();
+  afterRootRender(data?: IData): void {
+    const modalWindow: Modal = new Modal();
+    data ? modalWindow.listener(data.products) : modalWindow.listener();
+    const promo: PromoCode = new PromoCode();
     promo.listener();
   }
 }

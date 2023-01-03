@@ -20,7 +20,7 @@ console.log(mode + ' mode');
 const config = {
   entry: {
     // точка входа, какие скрипты вставлять
-    index: './src/index.js',
+    index: './src/index.ts',
     /**
      * можно подключать даже ts файлы,
      * вебпак сам создаст в итоге js файл.

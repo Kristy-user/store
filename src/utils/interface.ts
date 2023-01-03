@@ -11,6 +11,8 @@
 //   sort?: string[];
 // }
 
+import { IProduct } from '../interfaces/data';
+
 export default interface IFilters {
-  [key: string]: string[];
+  [key: string]: string[] | IProduct[];
 }
