@@ -1,4 +1,4 @@
-export const modalLayout = `
+export const modalLayout: string = `
 <div class="modal-content">
     <form class="form" action="" novalidate>
         <p class="form-title personal-title">Personal Data</p>

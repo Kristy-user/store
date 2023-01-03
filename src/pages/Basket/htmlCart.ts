@@ -1,4 +1,4 @@
-export const cartLayout = `
+export const cartLayout: string = `
 <section class="basket-page">
     <div class="container">
         <h2 class="basket__title">Cart</h2>

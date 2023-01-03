@@ -1,5 +1,5 @@
 export default class Validator {
-  static isValidName(name) {
+  static isValidName(name: string) {
     const nameArray = name.split(' ');
     if (nameArray.length < 2) return false;
     return (
@@ -7,13 +7,13 @@ export default class Validator {
     );
   }
 
-  static isValidPhone(number) {
+  static isValidPhone(number: string) {
     const re = /^([+ ]{2}[0-9]{9,14})?$/;
     return String(number).length > 0 && re.test(String(number));
   }
 
-  static isValidAddress(address) {
-    const addressArray = address.split(' ');
+  static isValidAddress(address: string) {
+    const addressArray: string[] = address.split(' ');
     if (addressArray.length < 3) return false;
     return (
       addressArray.filter((part) => part.length > 3).length ===
@@ -21,13 +21,13 @@ export default class Validator {
     );
   }
 
-  static isValidEmail(email) {
+  static isValidEmail(email: string) {
     const re =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   }
 
-  static isValidCardNumber(cardNumber) {
+  static isValidCardNumber(cardNumber: string) {
     const re = /^([0-9]{4}[ ]{1}[0-9]{4}[ ]{1}[0-9]{4}[ ]{1}[0-9]{4})?$/;
     return (
       String(cardNumber).length > 0 &&
@@ -36,8 +36,8 @@ export default class Validator {
     );
   }
 
-  static isValidValidThru(validThru) {
-    const validThruArray = validThru.split('/');
+  static isValidValidThru(validThru: string) {
+    const validThruArray: string[] = validThru.split('/');
 
     if (validThruArray.length === 1) return false;
 
@@ -48,21 +48,22 @@ export default class Validator {
     );
   }
 
-  static isValidCvv(cvv) {
+  static isValidCvv(cvv: string) {
     return cvv.length === 3;
   }
-  static isCreditCardNumber(ccn) {
+  static isCreditCardNumber(ccn: string) {
     const cnnArr = ccn
       .toString()
       .split('')
       .filter((n) => n !== ' ');
 
     const result = cnnArr.map((item, i) => {
+      let itemNumber: number = Number(item);
       if (
         (i % 2 === 0 && cnnArr.length % 2 === 0) ||
         (i % 2 && cnnArr.length % 2)
       ) {
-        return item * 2 > 9 ? item * 2 - 9 : item * 2;
+        return itemNumber * 2 > 9 ? itemNumber * 2 - 9 : itemNumber * 2;
       }
       return Number(item);
     });
