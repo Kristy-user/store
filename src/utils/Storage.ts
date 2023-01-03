@@ -7,16 +7,16 @@ class Storage {
     this.store = name;
     this.obj = this.getAll();
   }
-  set(key: string, value: []) {
+  set(key: string, value: string[]): void {
     const data = this.obj;
     data[key] = value;
     const newData = JSON.stringify(data);
     localStorage.setItem(this.store, newData);
   }
-  get(key: string) {
+  get(key: string): string[] {
     return this.obj[key];
   }
-  drop(key: string) {
+  drop(key: string): void {
     this.obj[key] && this.obj[key].length > 0
       ? (this.obj[key].length = 0)
       : this.obj[key];
@@ -24,12 +24,12 @@ class Storage {
     const newData = JSON.stringify(data);
     localStorage.setItem(this.store, newData);
   }
-  getAll() {
+  getAll(): IFilters {
     const data = localStorage.getItem(this.store);
     return data ? JSON.parse(data) : {};
   }
 
-  dropAll() {
+  dropAll(): void {
     localStorage.clear();
   }
 }

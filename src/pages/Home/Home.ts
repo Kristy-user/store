@@ -12,10 +12,10 @@ class Home extends AbstractView {
   private productsView: ProductCards;
   private listener: AllListener;
   private cart: CartComponent;
-  private minPrice: string;
-  private maxPrice: string;
-  private minStock: string;
-  private maxStock: string;
+  private minPrice: number;
+  private maxPrice: number;
+  private minStock: number;
+  private maxStock: number;
   private currentFilters: IFilters;
 
   constructor(params: string) {
@@ -25,26 +25,26 @@ class Home extends AbstractView {
     this.listener = new AllListener();
     this.currentFilters = RouterHelper.setFilter(this.params);
     this.cart = new CartComponent();
-    this.minPrice = '';
-    this.maxPrice = '';
-    this.minStock = '';
-    this.maxStock = '';
+    this.minPrice = 0;
+    this.maxPrice = 0;
+    this.minStock = 0;
+    this.maxStock = 0;
   }
   getCategoryProducts(data: IData['products']) {
     let keys = Object.keys(this.currentFilters);
     let productsList = data;
     keys.forEach((key) => {
       productsList = productsList.filter((item) => {
-        if (key === 'price') {
-          this.minPrice = this.currentFilters[key][0];
-          this.maxPrice = this.currentFilters[key][1];
+        if (key === 'price' && this.currentFilters[key] != undefined) {
+          this.minPrice = Number(this.currentFilters[key][0]);
+          this.maxPrice = Number(this.currentFilters[key][1]);
           return (
             item.price >= Number(this.currentFilters[key][0]) &&
             item.price <= Number(this.currentFilters[key][1])
           );
         } else if (key === 'stock') {
-          this.minStock = this.currentFilters[key][0];
-          this.maxStock = this.currentFilters[key][1];
+          this.minStock = Number(this.currentFilters[key][0]);
+          this.maxStock = Number(this.currentFilters[key][1]);
           return (
             item.stock >= Number(this.currentFilters[key][0]) &&
             item.stock <= Number(this.currentFilters[key][1])
@@ -110,8 +110,7 @@ class Home extends AbstractView {
       this.maxPrice ? this.maxPrice : maxPrice,
       this.minStock ? this.minStock : minStock,
       this.maxStock ? this.maxStock : maxStock,
-      productsList.length,
-      productsList
+      productsList.length
     );
   }
 
