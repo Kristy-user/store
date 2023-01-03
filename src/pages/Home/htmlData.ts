@@ -1,4 +1,4 @@
-export const homeRoot = `<section class="products container">
+export const homeRoot: string = `<section class="products container">
 <aside class="products__filter">
   <div class="filters__box">
   <div>

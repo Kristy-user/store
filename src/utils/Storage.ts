@@ -1,18 +1,22 @@
+import IFilters from './interface';
+
 class Storage {
-  constructor(name) {
+  private store: string;
+  private obj: IFilters;
+  constructor(name: string) {
     this.store = name;
     this.obj = this.getAll();
   }
-  set(key, value) {
+  set(key: string, value: []) {
     const data = this.obj;
     data[key] = value;
     const newData = JSON.stringify(data);
     localStorage.setItem(this.store, newData);
   }
-  get(key) {
+  get(key: string) {
     return this.obj[key];
   }
-  drop(key) {
+  drop(key: string) {
     this.obj[key] && this.obj[key].length > 0
       ? (this.obj[key].length = 0)
       : this.obj[key];

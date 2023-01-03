@@ -2,28 +2,38 @@ import { ProductDetails } from '../pages/ProductDetails/ProductDetails';
 import Error from '../pages/404/404';
 import { Cart } from '../pages/Basket/Cart';
 import { Home } from '../pages/Home/Home';
-import { data } from '../index.js';
+
+import ProductsData from './ProductsData';
+
+export interface Path {
+  path: string;
+  view: Home | ProductDetails | Cart;
+}
 
 class Router {
-  constructor() {
+  private url: string;
+  private root: HTMLElement | null;
+  constructor(url: string) {
+    this.url = url;
     this.root = document.querySelector('#root');
   }
-  async router() {
-    const routes = [
+  async router(): Promise<void> {
+    const routes: Path[] = [
       { path: '/', view: Home },
       { path: '#product-details', view: ProductDetails },
       { path: '#?', view: Home },
       { path: '#cart', view: Cart },
     ];
+    const data = ProductsData.getData(this.url);
     const currentProducts = await data;
-    const hash = location.hash.toLocaleLowerCase() || '/';
+    const hash: string = location.hash.toLocaleLowerCase() || '/';
 
-    const isAppRoute = () => {
+    const isAppRoute = (): number | undefined => {
       if (hash === '/') {
         return 0;
       } else {
-        const hashStart = hash.split('/').slice(0, 1).join('');
-        let matchInd;
+        const hashStart: string = hash.split('/').slice(0, 1).join('');
+        let matchInd: number | undefined;
         routes.forEach((route, i) => {
           if (route.path.startsWith(hashStart)) {
             matchInd = i;
@@ -33,20 +43,25 @@ class Router {
       }
     };
     const pathInd = isAppRoute();
-    const productList = document.querySelector('.products-items');
+    const productList: HTMLElement | null =
+      document.querySelector('.products-items');
     const view =
-      pathInd >= 0 ? new routes[pathInd].view(hash) : new Error(hash);
+      pathInd && pathInd >= 0
+        ? new routes[pathInd].view(hash)
+        : new Error(hash);
     if ((pathInd === 0 || pathInd === 2) && hash.length > 3 && productList) {
       productList.innerHTML = '';
       await view.afterRootRender(currentProducts);
     } else {
-      this.root.innerHTML = '';
+      if (this.root) {
+        this.root.innerHTML = '';
+      }
       await view.render(this.root, currentProducts);
     }
   }
 
-  navigateTo(url) {
-    history.pushState(null, null, url);
+  navigateTo(url: string): void {
+    history.pushState(null, '', url);
     this.router();
   }
 }

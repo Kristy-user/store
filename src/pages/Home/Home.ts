@@ -5,9 +5,20 @@ import { homeRoot } from './htmlData.js';
 
 import AllListener from '../../components/Listeners/AllListener.js';
 import CartComponent from '../../components/CartComponent.js';
+import IData from '../../interfaces/data.js';
+import IFilters from '../../utils/interface.js';
 
 class Home extends AbstractView {
-  constructor(params) {
+  private productsView: ProductCards;
+  private listener: AllListener;
+  private cart: CartComponent;
+  private minPrice: string;
+  private maxPrice: string;
+  private minStock: string;
+  private maxStock: string;
+  private currentFilters: IFilters;
+
+  constructor(params: string) {
     super(params);
     this.setTitle('Home');
     this.productsView = new ProductCards();
@@ -19,7 +30,7 @@ class Home extends AbstractView {
     this.minStock = '';
     this.maxStock = '';
   }
-  getCategoryProducts(data) {
+  getCategoryProducts(data: IData['products']) {
     let keys = Object.keys(this.currentFilters);
     let productsList = data;
     keys.forEach((key) => {
@@ -28,15 +39,15 @@ class Home extends AbstractView {
           this.minPrice = this.currentFilters[key][0];
           this.maxPrice = this.currentFilters[key][1];
           return (
-            item.price >= this.currentFilters[key][0] &&
-            item.price <= this.currentFilters[key][1]
+            item.price >= Number(this.currentFilters[key][0]) &&
+            item.price <= Number(this.currentFilters[key][1])
           );
         } else if (key === 'stock') {
           this.minStock = this.currentFilters[key][0];
           this.maxStock = this.currentFilters[key][1];
           return (
-            item.stock >= this.currentFilters[key][0] &&
-            item.stock <= this.currentFilters[key][1]
+            item.stock >= Number(this.currentFilters[key][0]) &&
+            item.stock <= Number(this.currentFilters[key][1])
           );
         } else if (key === 'search') {
           return (
@@ -62,22 +73,38 @@ class Home extends AbstractView {
     });
     return productsList;
   }
-  afterRootRender(data) {
+  afterRootRender(data: IData) {
     this.cart.clearStorage();
-    const productsList = this.getCategoryProducts(data.products);
+    const productsList: IData['products'] = this.getCategoryProducts(
+      data.products
+    );
     const productsElement = this.productsView.draw(productsList);
-    const productListContainer = document.querySelector('.products-items');
+    const productListContainer: HTMLElement | null =
+      document.querySelector('.products-items');
     if (productsElement) {
-      productListContainer.append(productsElement);
+      if (productListContainer) {
+        productListContainer.append(productsElement);
+      }
     } else {
-      const wrapper = document.createElement('div');
+      const wrapper: HTMLElement | null = document.createElement('div');
       wrapper.classList.add('not__found');
-      document.querySelector('.products-items').append(wrapper);
+      if (productListContainer) {
+        productListContainer.append(wrapper);
+      }
     }
-    const maxPrice = Math.max(...productsList.map((item) => item.price));
-    const minPrice = Math.min(...productsList.map((item) => item.price));
-    const maxStock = Math.max(...productsList.map((item) => item.stock));
-    const minStock = Math.min(...productsList.map((item) => item.stock));
+    const maxPrice: number = Math.max(
+      ...productsList.map((item) => item.price)
+    );
+    const minPrice: number = Math.min(
+      ...productsList.map((item) => item.price)
+    );
+    const maxStock: number = Math.max(
+      ...productsList.map((item) => item.stock)
+    );
+    const minStock: number = Math.min(
+      ...productsList.map((item) => item.stock)
+    );
+
     this.listener.listenDynamicData(
       this.minPrice ? this.minPrice : minPrice,
       this.maxPrice ? this.maxPrice : maxPrice,
@@ -88,12 +115,12 @@ class Home extends AbstractView {
     );
   }
 
-  render(root, data) {
-    const categories = new Set(data.products.map((item) => item.category));
-    const brands = new Set(
-      data.products
-        .filter((item) => !!item.title)
-        .map((item) => item.brand.toLowerCase())
+  render(root: HTMLElement, data: IData): void {
+    const categories: Set<string> = new Set(
+      data.products.map((item) => item.category)
+    );
+    const brands: Set<string> = new Set(
+      data.products.map((item) => item.brand.toLowerCase())
     );
     root.innerHTML = homeRoot;
     this.renderFilterData(categories, brands);
@@ -101,11 +128,12 @@ class Home extends AbstractView {
     this.afterRootRender(data);
   }
 
-  renderFilterData(categories, brands) {
-    const categoryContainer = document.querySelector('#category');
-    const brandContainer = document.querySelector('#brand');
+  renderFilterData(categories: Set<string>, brands: Set<string>) {
+    const categoryContainer: HTMLElement | null =
+      document.querySelector('#category');
+    const brandContainer: HTMLElement | null = document.querySelector('#brand');
     categories.forEach((item) => {
-      const div = document.createElement('div');
+      const div: HTMLElement | null = document.createElement('div');
       div.innerHTML = `
   <input
     type="checkbox"
@@ -116,7 +144,9 @@ class Home extends AbstractView {
     >${
       item[0].toUpperCase() + item.slice(1, item.length).toLowerCase()
     }</label>`;
-      categoryContainer.append(div);
+      if (categoryContainer) {
+        categoryContainer.append(div);
+      }
     });
     brands.forEach((item) => {
       const div = document.createElement('div');
@@ -130,10 +160,12 @@ class Home extends AbstractView {
     >${
       item[0].toUpperCase() + item.slice(1, item.length).toLowerCase()
     }</label>`;
-      brandContainer.append(div);
+      if (brandContainer) {
+        brandContainer.append(div);
+      }
     });
   }
-  sortData(data) {
+  sortData(data: IData['products']): void {
     switch (this.currentFilters['sort'][0]) {
       case 'price-asc':
         data = data.sort((a, b) => Number(a.price) - Number(b.price));

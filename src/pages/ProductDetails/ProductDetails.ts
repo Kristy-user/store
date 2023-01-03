@@ -4,11 +4,16 @@ import ProductDetailsCard from '../../components/ProductDetailsCard';
 import CartComponent from '../../components/CartComponent';
 import Modal from '../Basket/ModalWindow';
 import PhotoListener from '../../components/Listeners/PhotoListener';
+import IData from '../../interfaces/data';
 
 class ProductDetails extends AbstractView {
-  constructor(params) {
+  private productsView: ProductDetailsCard;
+  private cart: CartComponent;
+  private modalWindow: Modal;
+  private photo: PhotoListener;
+  constructor(params: string) {
     super(params);
-    this.productId = params;
+    this.params = params;
     this.setTitle('Product Details');
     this.productsView = new ProductDetailsCard();
     this.cart = new CartComponent();
@@ -16,17 +21,17 @@ class ProductDetails extends AbstractView {
     this.photo = new PhotoListener();
   }
 
-  showIncorrect() {
-    const div = document.createElement('div');
+  showIncorrect(): HTMLDivElement {
+    const div: HTMLDivElement = document.createElement('div');
     div.classList.add('not-found');
     div.textContent = `Product number
-  ${this.productId.split('/').slice(-1).join('')}
+  ${this.params.split('/').slice(-1).join('')}
     not found`;
     return div;
   }
 
-  getItem(data) {
-    const id = RouterHelper.checkId(this.productId);
+  getItem(data: IData): void | HTMLDivElement {
+    const id = RouterHelper.checkId(this.params);
     if (id) {
       const item = data.products.filter((x) => x.id === id);
       return item.length > 0
@@ -34,15 +39,18 @@ class ProductDetails extends AbstractView {
         : this.showIncorrect();
     } else return this.showIncorrect();
   }
-  afterRootRender(data) {
+  afterRootRender(data: IData) {
     const productItem = this.getItem(data);
-    const productItemContainer = document.querySelector('.product-details');
-    productItemContainer.append(productItem);
+    const productItemContainer: HTMLElement | null =
+      document.querySelector('.product-details');
+    if (productItemContainer && productItem instanceof HTMLDivElement) {
+      productItemContainer.append(productItem);
+    }
     this.cart.listenCart(data.products);
     this.modalWindow.listener(data.products);
     this.photo.listenPhoto();
   }
-  render(root, data) {
+  render(root: HTMLElement, data: IData) {
     root.innerHTML = '<div class="product-details container"></div>';
     this.afterRootRender(data);
   }

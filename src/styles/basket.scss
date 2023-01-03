@@ -29,8 +29,10 @@
   }
 
   .pagination {
+    display: flex;
+    align-items: center;
+    align-content: center;
     div {
-      display: inline-block;
       margin-right: 10px;
       cursor: pointer;
       background-color: #f1eadc;

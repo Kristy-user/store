@@ -1,5 +1,5 @@
 export default interface IData {
-    products: IProduct,
+    products: IProduct[],
     find(cb: Function): IProduct,
 }
 
@@ -13,5 +13,5 @@ export interface IProduct {
     rating: number,
     stock: number,
     title: string,
-    count: number
+    count?: number
 }
