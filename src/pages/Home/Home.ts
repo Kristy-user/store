@@ -63,10 +63,11 @@ class Home extends AbstractView {
           return item;
         } else if (key === 'view') {
           return item;
+        } else if (key === 'brand') {
+          return (this.currentFilters[key] as string[]).includes(
+            item[key].split(' ').join('-').toLowerCase()
+          );
         }
-        return this.currentFilters[key].includes(
-          item[key].split(' ').join('-').toLowerCase()
-        );
       });
       if (key === 'sort') {
         this.sortData(productsList);
@@ -80,6 +81,7 @@ class Home extends AbstractView {
       data.products
     );
     const productsElement = this.productsView.draw(productsList);
+
     const productListContainer: HTMLElement | null =
       document.querySelector('.products-items');
     if (productsElement) {

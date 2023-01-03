@@ -2,8 +2,11 @@ export default interface IData {
   products: IProduct[];
   find(cb: Function): IProduct;
 }
+interface IObjectKeys {
+  [key: string]: string | number | string[] | undefined;
+}
 
-export interface IProduct {
+export interface IProduct extends IObjectKeys {
   brand: string;
   category: string;
   description: string;

@@ -1,10 +1,10 @@
-import IData from "../interfaces/data";
+import IData from '../interfaces/data';
 
 export default class ProductsData {
-    static async getData(url: string): Promise<IData> {
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log(data);
-        return data;
-    }
+  static async getData(url: string): Promise<IData> {
+    const response: Response = await fetch(url);
+    const data: IData = await response.json();
+    console.log(data);
+    return data;
+  }
 }

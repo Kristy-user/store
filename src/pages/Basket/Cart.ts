@@ -19,23 +19,23 @@ class Cart extends AbstractView {
     if (currentCart && currentCart.length > 0) {
       this.cart.pagination();
       const limit: HTMLInputElement | null = document.querySelector('#limit');
-      limit ? limit.value : null;
+      const limitValue: number = limit ? Number(limit.value) : 4;
       const currentPage: HTMLElement | null = document.querySelector(
         '.pagination .active'
       );
       currentPage ? currentPage.textContent : null;
       const start: number =
         Number(currentPage) > 1
-          ? Number(limit) * Number(currentPage) - Number(limit)
+          ? limitValue * Number(currentPage) - limitValue
           : 0;
-      let lastIndex: number =
-        Number(currentPage) * Number(limit) - Number(limit);
-      const end: number = Number(start) + Number(limit);
+      let lastIndex: number = Number(currentPage) * limitValue - limitValue;
+      const end: number = Number(start) + limitValue;
       const dataToShow = currentCart.slice(start, end);
       this.cart.setCurrentAmountHeader();
       const cartWrapper: HTMLElement | null =
         document.querySelector('.basket-list');
       orderEl ? orderEl.classList.remove('hidden') : null;
+
       const content = (dataToShow as IProduct[]).map(
         (item, i) =>
           `<li class="basket-list-item">
@@ -74,7 +74,7 @@ class Cart extends AbstractView {
           </div>
         </li>`
       );
-      cartWrapper
+      cartWrapper && content.length > 0
         ? (cartWrapper.innerHTML = content.reduce((a, b) => a + b))
         : null;
     } else {

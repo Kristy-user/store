@@ -46,14 +46,19 @@ class Router {
     const productList: HTMLElement | null =
       document.querySelector('.products-items');
     const view =
-      pathInd && pathInd >= 0
+      pathInd !== undefined && pathInd >= 0
         ? new routes[pathInd].view(hash)
         : new Error(hash);
-    if ((pathInd === 0 || pathInd === 2) && hash.length > 3 && productList) {
+    if (
+      (pathInd === 0 || pathInd === 2) &&
+      hash.length > 3 &&
+      productList &&
+      currentProducts.products.length > 0
+    ) {
       productList.innerHTML = '';
       view.afterRootRender(currentProducts);
     } else {
-      if (this.root) {
+      if (this.root && currentProducts.products.length > 0) {
         this.root.innerHTML = '';
 
         view.render(this.root, currentProducts);
