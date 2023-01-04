@@ -3,7 +3,7 @@ import Header from '../components/Header';
 
 export default class App {
   start(): void {
-    const routing = new Router('https://dummyjson.com/products?limit=100');
+    const routing = new Router();
     window.addEventListener('popstate', routing.router);
     document.addEventListener('DOMContentLoaded', () => {
       document.body.addEventListener('click', (e: Event) => {

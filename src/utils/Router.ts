@@ -11,10 +11,8 @@ export interface Path {
 }
 
 class Router {
-  private url: string;
   private root: HTMLElement | null;
-  constructor(url: string) {
-    this.url = url;
+  constructor() {
     this.root = document.querySelector('#root');
   }
   async router(): Promise<void> {
@@ -24,7 +22,10 @@ class Router {
       { path: '#?', view: Home },
       { path: '#cart', view: Cart },
     ];
-    const data = ProductsData.getData(this.url);
+    const data = ProductsData.getData(
+      'https://dummyjson.com/products?limit=100'
+    );
+
     const currentProducts = await data;
     const hash: string = location.hash.toLocaleLowerCase() || '/';
 
