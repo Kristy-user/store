@@ -67,6 +67,8 @@ class Home extends AbstractView {
           return (this.currentFilters[key] as string[]).includes(
             item[key].split(' ').join('-').toLowerCase()
           );
+        } else if (key === 'category') {
+          return (this.currentFilters[key] as string[]).includes(item[key]);
         }
       });
       if (key === 'sort') {

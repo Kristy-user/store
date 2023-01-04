@@ -234,8 +234,8 @@ export default class CartComponent {
       paginator.addEventListener('click', (e: Event) => {
         if (
           e.target instanceof HTMLElement &&
-          (e.target.classList.contains('prev0') ||
-            e.target.classList.contains('next-last'))
+          !e.target.classList.contains('prev0') &&
+          !e.target.classList.contains('next-last')
         ) {
           if (e.target.id) {
             paginator
