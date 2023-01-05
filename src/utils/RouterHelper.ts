@@ -1,4 +1,4 @@
-import IFilters from './interface';
+import IFilters from '../interfaces/filters';
 
 class RouterHelper {
   static checkId = (path: string): number | boolean => {

@@ -1,5 +1,5 @@
 import { IProduct } from '../../interfaces/data';
-import IFilters from '../../utils/interface';
+import IFilters from '../../interfaces/filters';
 import RouterHelper from '../../utils/RouterHelper';
 
 export default class Sort {

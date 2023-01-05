@@ -1,5 +1,5 @@
 import { IProduct } from '../interfaces/data';
-import IFilters from './interface';
+import IFilters from '../interfaces/filters';
 
 class Storage {
   private store: string;

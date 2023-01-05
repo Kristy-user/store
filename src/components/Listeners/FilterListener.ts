@@ -1,6 +1,6 @@
 import Storage from '../../utils/Storage';
 import RouterHelper from '../../utils/RouterHelper';
-import IFilters from '../../utils/interface';
+import IFilters from '../../interfaces/filters';
 
 const enum Filters {
   Category = 'category',

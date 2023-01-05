@@ -5,7 +5,7 @@ import { homeRoot } from './htmlData';
 import AllListener from '../../components/Listeners/AllListener';
 import CartComponent from '../../components/CartComponent';
 import IData from '../../interfaces/data';
-import IFilters from '../../utils/interface';
+import IFilters from '../../interfaces/filters';
 
 class Home extends AbstractView {
   private productsView: ProductCards;
