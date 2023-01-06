@@ -34,21 +34,21 @@ class ProductDetails extends AbstractView {
     const id = RouterHelper.checkId(this.params);
     if (id) {
       const item = data.products.filter((x) => x.id === id);
-      return item.length > 0
-        ? this.productsView.draw(item)
-        : this.showIncorrect();
-    } else return this.showIncorrect();
+      return item.length > 0 ? this.productsView.draw(item) : null;
+    } else return null;
   }
   afterRootRender(data: IData) {
     const productItem = this.getItem(data);
     const productItemContainer: HTMLElement | null =
       document.querySelector('.product-details');
-    if (productItemContainer && productItem instanceof HTMLDivElement) {
-      productItemContainer.append(productItem);
+    if (productItemContainer) {
+      if (productItem) {
+        productItemContainer.append(productItem);
+        this.cart.listenCart(data.products);
+        this.modalWindow.listener(data.products);
+        this.photo.listenPhoto();
+      } else productItemContainer.append(this.showIncorrect());
     }
-    this.cart.listenCart(data.products);
-    this.modalWindow.listener(data.products);
-    this.photo.listenPhoto();
   }
   render(root: HTMLElement, data: IData) {
     root.innerHTML = '<div class="product-details container"></div>';

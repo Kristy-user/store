@@ -41,22 +41,24 @@ class ProductDetailsCard {
       const imgEl: HTMLImageElement | null =
         cardClone.querySelector('.img-one');
       if (imgEl) {
-        imgEl.src = product.thumbnail;
+        imgEl.src = product.images[0];
       }
       const imgElTwo: HTMLImageElement | null =
         cardClone.querySelector('.img-two');
       if (imgElTwo) {
-        imgElTwo.src = product.images[1];
+        product.id === 1
+          ? (imgElTwo.src = product.images[3])
+          : (imgElTwo.src = product.images[1]);
       }
       const imgElThree: HTMLImageElement | null =
         cardClone.querySelector('.img-three');
       if (imgElThree) {
-        imgElThree.src = product.images[2] || product.images[0];
+        imgElThree.src = product.images[2];
       }
       const imgMain: HTMLImageElement | null =
         cardClone.querySelector('.img-main');
       if (imgMain) {
-        imgMain.src = product.thumbnail;
+        imgMain.src = product.images[0];
       }
       const descriptionEl: HTMLElement | null = cardClone.querySelector(
         '.product-description-text'
