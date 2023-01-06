@@ -6,6 +6,7 @@ import AllListener from '../../components/Listeners/AllListener';
 import CartComponent from '../../components/CartComponent';
 import IData from '../../interfaces/data';
 import IFilters from '../../interfaces/filters';
+import Sort from '../../utils/Sort';
 
 class Home extends AbstractView {
   private productsView: ProductCards;
@@ -172,16 +173,16 @@ class Home extends AbstractView {
   sortData(data: IData['products']): void {
     switch (this.currentFilters['sort'][0]) {
       case 'price-asc':
-        data = data.sort((a, b) => Number(a.price) - Number(b.price));
+        data = Sort.directSort(data, 'price');
         break;
       case 'price-desc':
-        data = data.sort((a, b) => Number(b.price) - Number(a.price));
+        data = Sort.reverseSort(data, 'price');
         break;
       case 'rating-asc':
-        data = data.sort((a, b) => Number(a.rating) - Number(b.rating));
+        data = Sort.directSort(data, 'rating');
         break;
       case 'rating-desc':
-        data = data.sort((a, b) => Number(b.rating) - Number(a.rating));
+        data = Sort.reverseSort(data, 'rating');
         break;
       default:
         break;

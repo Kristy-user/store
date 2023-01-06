@@ -1,3 +1,4 @@
+import Sort from '../src/utils/Sort';
 import Validator from '../src/utils/Validator';
 
 describe('Tests for our app', () => {
@@ -94,6 +95,446 @@ describe('Tests for our app', () => {
     ];
     testCases.forEach(({ ccn, expected }) => {
       const result = Validator.isCreditCardNumber(ccn);
+      expect(result).toEqual(expected);
+    });
+  });
+  it('directSort should do a direct sort of an array of objects using one key', () => {
+    const testCases = [
+      {
+        arr: [
+          {
+            title: 'Samsung Universe 9',
+            description:
+              "Samsung's new variant which goes beyond Galaxy to the Universe",
+            price: 1249,
+            discountPercentage: 15.46,
+            rating: 4.09,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+          {
+            title: 'iPhone 9',
+            description: 'An apple mobile which is nothing like apple',
+            price: 549,
+            discountPercentage: 12.96,
+            rating: 4.69,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+          {
+            title: 'iPhone X',
+            description:
+              'SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...',
+            price: 899,
+            discountPercentage: 17.94,
+            rating: 4.44,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+        ],
+        expected: [
+          {
+            title: 'iPhone 9',
+            description: 'An apple mobile which is nothing like apple',
+            price: 549,
+            discountPercentage: 12.96,
+            rating: 4.69,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+          {
+            title: 'iPhone X',
+            description:
+              'SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...',
+            price: 899,
+            discountPercentage: 17.94,
+            rating: 4.44,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+          {
+            title: 'Samsung Universe 9',
+            description:
+              "Samsung's new variant which goes beyond Galaxy to the Universe",
+            price: 1249,
+            discountPercentage: 15.46,
+            rating: 4.09,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+        ],
+      },
+      {
+        arr: [
+          {
+            title: 'Microsoft Surface Laptop 4',
+            description:
+              'Style and speed. Stand out on HD video calls backed by Studio Mics. Capture ideas on the vibrant touchscreen.',
+            price: 1499,
+            discountPercentage: 10.23,
+            rating: 4.43,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+          {
+            title: 'OPPOF19',
+            description: 'OPPO F19 is officially announced on April 2021.',
+            price: 280,
+            discountPercentage: 17.91,
+            rating: 4.3,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+          {
+            title: 'Huawei P30',
+            description:
+              'Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.',
+            price: 499,
+            discountPercentage: 10.58,
+            rating: 4.09,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+        ],
+        expected: [
+          {
+            title: 'OPPOF19',
+            description: 'OPPO F19 is officially announced on April 2021.',
+            price: 280,
+            discountPercentage: 17.91,
+            rating: 4.3,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+          {
+            title: 'Huawei P30',
+            description:
+              'Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.',
+            price: 499,
+            discountPercentage: 10.58,
+            rating: 4.09,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+          {
+            title: 'Microsoft Surface Laptop 4',
+            description:
+              'Style and speed. Stand out on HD video calls backed by Studio Mics. Capture ideas on the vibrant touchscreen.',
+            price: 1499,
+            discountPercentage: 10.23,
+            rating: 4.43,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+        ],
+      },
+    ];
+    testCases.forEach(({ arr, expected }) => {
+      const result = Sort.directSort(arr, 'price');
+      expect(result).toEqual(expected);
+    });
+  });
+  it('reverseSort should do a reverse sort of an array of objects using one key', () => {
+    const testCases = [
+      {
+        arr: [
+          {
+            title: 'Samsung Universe 9',
+            description:
+              "Samsung's new variant which goes beyond Galaxy to the Universe",
+            price: 1249,
+            discountPercentage: 15.46,
+            rating: 4.09,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+          {
+            title: 'iPhone 9',
+            description: 'An apple mobile which is nothing like apple',
+            price: 549,
+            discountPercentage: 12.96,
+            rating: 4.69,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+          {
+            title: 'iPhone X',
+            description:
+              'SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...',
+            price: 899,
+            discountPercentage: 17.94,
+            rating: 4.44,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+        ],
+        expected: [
+          {
+            title: 'iPhone 9',
+            description: 'An apple mobile which is nothing like apple',
+            price: 549,
+            discountPercentage: 12.96,
+            rating: 4.69,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+          {
+            title: 'iPhone X',
+            description:
+              'SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...',
+            price: 899,
+            discountPercentage: 17.94,
+            rating: 4.44,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+          {
+            title: 'Samsung Universe 9',
+            description:
+              "Samsung's new variant which goes beyond Galaxy to the Universe",
+            price: 1249,
+            discountPercentage: 15.46,
+            rating: 4.09,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+        ],
+      },
+      {
+        arr: [
+          {
+            title: 'Microsoft Surface Laptop 4',
+            description:
+              'Style and speed. Stand out on HD video calls backed by Studio Mics. Capture ideas on the vibrant touchscreen.',
+            price: 1499,
+            discountPercentage: 10.23,
+            rating: 4.43,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+          {
+            title: 'OPPOF19',
+            description: 'OPPO F19 is officially announced on April 2021.',
+            price: 280,
+            discountPercentage: 17.91,
+            rating: 4.3,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+          {
+            title: 'Huawei P30',
+            description:
+              'Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.',
+            price: 499,
+            discountPercentage: 10.58,
+            rating: 4.09,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+        ],
+        expected: [
+          {
+            title: 'Microsoft Surface Laptop 4',
+            description:
+              'Style and speed. Stand out on HD video calls backed by Studio Mics. Capture ideas on the vibrant touchscreen.',
+            price: 1499,
+            discountPercentage: 10.23,
+            rating: 4.43,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+          {
+            title: 'OPPOF19',
+            description: 'OPPO F19 is officially announced on April 2021.',
+            price: 280,
+            discountPercentage: 17.91,
+            rating: 4.3,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+          {
+            title: 'Huawei P30',
+            description:
+              'Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.',
+            price: 499,
+            discountPercentage: 10.58,
+            rating: 4.09,
+            id: 1,
+            stock: 68,
+            brand: 'Microsoft Surface',
+            category: 'laptops',
+            thumbnail: 'https://i.dummyjson.com/data/products/8/thumbnail.jpg',
+            images: [
+              'https://i.dummyjson.com/data/products/8/1.jpg',
+              'https://i.dummyjson.com/data/products/8/2.jpg',
+            ],
+          },
+        ],
+      },
+    ];
+    testCases.forEach(({ arr, expected }) => {
+      const result = Sort.reverseSort(arr, 'rating');
       expect(result).toEqual(expected);
     });
   });
