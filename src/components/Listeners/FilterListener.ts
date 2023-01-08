@@ -46,7 +46,11 @@ class FilterListener {
               .split('&')
               .filter(
                 (item) =>
-                  item.slice(0, 5) === 'price' || item.slice(0, 5) === 'stock'
+                  item.slice(0, 5) === 'price' ||
+                  item.slice(0, 5) === 'stock' ||
+                  item.slice(0, 6) === 'search' ||
+                  item.slice(0, 4) === 'view' ||
+                  item.slice(0, 4) === 'sort'
               );
 
             this.filters.forEach((item, i) => {
