@@ -41,7 +41,7 @@ class ProductDetailsCard {
       const imgEl: HTMLImageElement | null =
         cardClone.querySelector('.img-one');
       if (imgEl) {
-        imgEl.src = product.images[0];
+        imgEl.src = product.thumbnail;
       }
       const imgElTwo: HTMLImageElement | null =
         cardClone.querySelector('.img-two');
@@ -58,7 +58,7 @@ class ProductDetailsCard {
       const imgMain: HTMLImageElement | null =
         cardClone.querySelector('.img-main');
       if (imgMain) {
-        imgMain.src = product.images[0];
+        imgMain.src = product.thumbnail;
       }
       const descriptionEl: HTMLElement | null = cardClone.querySelector(
         '.product-description-text'
