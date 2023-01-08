@@ -2,6 +2,7 @@ import { modalLayout } from './htmlModal';
 import Validator from '../../utils/Validator';
 import IData from '../../interfaces/data';
 import { IProduct } from '../../interfaces/data';
+import ICart from '../../interfaces/storage';
 
 export default class Modal {
   private root: HTMLDivElement;
@@ -343,28 +344,30 @@ export default class Modal {
   buyFromProductDetails(data?: IData['products']) {
     const currentId = location.hash.split('/').slice(-1)[0];
     window.location.hash = '#cart';
-    const itemsInCart = JSON.parse(localStorage.getItem('cart') as string);
-    if (itemsInCart) {
-      if (
-        itemsInCart.inCart
+    const isCart: string | null = localStorage.getItem('cart');
+    const itemsInCart: ICart = isCart ? JSON.parse(isCart) : {};
+
+    if (
+      !itemsInCart.inCart ||
+      (itemsInCart.inCart &&
+        !(itemsInCart.inCart as IData['products'])
           .map((item: IProduct) => item.id)
-          .includes(Number(currentId))
-      ) {
-      } else {
-        const previousProducts =
-          JSON.parse(localStorage.getItem('cart') as string).inCart || [];
-        if (data) {
-          const currentProduct = data.find(
-            (item: IProduct) => item.id === Number(currentId)
-          );
-          currentProduct ? (currentProduct.count = 1) : null;
+          .includes(Number(currentId)))
+    ) {
+      const previousProducts: IData['products'] = itemsInCart.inCart
+        ? itemsInCart.inCart
+        : [];
+      if (data) {
+        const currentProduct = data.find(
+          (item: IProduct) => item.id === Number(currentId)
+        );
+        if (currentProduct) {
+          currentProduct.count = 1;
           previousProducts.push(currentProduct);
           const newData = JSON.stringify({ ['inCart']: previousProducts });
           localStorage.setItem('cart', newData);
         }
       }
-    }
-    {
     }
   }
 }
