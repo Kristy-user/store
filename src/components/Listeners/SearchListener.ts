@@ -1,7 +1,13 @@
+import RouterHelper from '../../utils/RouterHelper';
+
 export default class Search {
   listenSearch(): void {
+    const currentFilters = RouterHelper.setFilter(location.hash);
     const inputSearch: HTMLInputElement | null =
       document.querySelector('.search__input');
+    if (currentFilters.search && inputSearch) {
+      inputSearch.value = currentFilters.search[0] as string;
+    }
     if (inputSearch) {
       inputSearch.addEventListener('input', (e: Event) => {
         e.preventDefault();
