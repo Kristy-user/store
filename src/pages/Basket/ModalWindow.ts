@@ -176,7 +176,7 @@ export default class Modal {
       setTimeout(function closeModal(): void {
         if (modal) modal.remove();
         window.location.hash = '';
-      }, 30000);
+      }, 3000);
     }
     return isValid;
   }
