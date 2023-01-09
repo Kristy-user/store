@@ -40,9 +40,7 @@ class Cart extends AbstractView {
           `<li class="basket-list-item">
           <div  class="basket-item-container">
           <div class="basket-item-number">
-          <p >${
-            currentPage && Number(currentPage) > 1 ? lastIndex : i + 1
-          }.</p></div>
+          <p >${currentPageValue > 1 ? ++lastIndex : i + 1}.</p></div>
            <div id=${
              item.id
            }  class = "basket-item-photo" style = background-image:url('${
