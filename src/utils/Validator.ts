@@ -16,7 +16,7 @@ export default class Validator {
     const addressArray: string[] = address.split(' ');
     if (addressArray.length < 3) return false;
     return (
-      addressArray.filter((part) => part.length > 3).length ===
+      addressArray.filter((part) => part.length > 4).length ===
       addressArray.length
     );
   }

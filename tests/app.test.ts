@@ -27,7 +27,7 @@ describe('Tests for our app', () => {
   });
   it('Checks if the address is valid', () => {
     const testCases = [
-      { address: 'Улица Правильный Этот', expected: true },
+      { address: 'Улица Правильный Адрес', expected: true },
       { address: 'Неправильный Адресс', expected: false },
       { address: 'Некорректный ад', expected: false },
     ];

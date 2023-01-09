@@ -165,14 +165,18 @@ export default class Modal {
 
     if (isValid) {
       localStorage.clear();
-      window.location.hash = '';
+      const modal: HTMLElement | null = document.querySelector('.modal');
       const modalContent = document.querySelector(
         '.modal-content'
       ) as HTMLDivElement;
       modalContent.innerHTML = '';
       modalContent.style.top = '25%';
       modalContent.innerHTML =
-        '<p class="info"> Thank you for your order! </p><p class="info"> Click anywhere to continue.</p>';
+        '<p class="info">Thank you for your order!</p><p class="info">Our manager will contact you.</p><p class="info">You`ll be redirected to the main page.</p>';
+      setTimeout(function closeModal(): void {
+        if (modal) modal.remove();
+        window.location.hash = '';
+      }, 30000);
     }
     return isValid;
   }

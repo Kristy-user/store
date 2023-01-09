@@ -13,7 +13,7 @@ export const modalLayout: string = `
         </div>
         <div class="form__group">
             <input type="text" class="input input-address" name="address" placeholder="Delivery address">
-            <div class="error-address">Please enter a valid address (Main info: Country Region City Street 45/12) </div>
+            <div class="error-address">Please enter a valid address (address should contains at least three words no shorter than 5 characters.) </div>
         </div>
         <div class="form__group">
             <input type="email" class="input input-email" name="email" placeholder="E-mail">
