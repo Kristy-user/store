@@ -9,11 +9,13 @@ export default class UrlCopyListener {
           copyBtn.textContent = 'Copy link';
         }, 600);
         tempInput.value = window.location.href;
-        if (copyBtn.parentNode && tempInput.parentNode) {
+        if (copyBtn.parentNode) {
           copyBtn.parentNode.appendChild(tempInput);
           tempInput.select();
           document.execCommand('copy');
-          tempInput.parentNode.removeChild(tempInput);
+          if (tempInput.parentNode) {
+            tempInput.parentNode.removeChild(tempInput);
+          }
         }
       });
     }
