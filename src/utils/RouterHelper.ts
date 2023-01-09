@@ -15,7 +15,7 @@ class RouterHelper {
       const filtersString: string = path.split('?')[1].replace('/', '');
       const filters: IFilters = {};
       filtersString.split('&').forEach((elem) => {
-        const [key, valuesString] = elem.split('=');
+        const [key, valuesString] = elem.includes('=') ? elem.split('=') : elem;
         const values = valuesString.split('+');
         filters[key] = values;
       });
