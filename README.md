@@ -1,8 +1,8 @@
-Online-Store
+#Online-Store
 
-Team:
+**Team:**
 
-- [https://github.com/Nkp1sss](Nikita Kovalev)
-- [https://github.com/Kristy-user] (Kristina Klepik)
+- [Kristina Klepik](https://github.com/Kristy-user)
+- [Nikita Kovalev](https://github.com/Nkp1sss)
 
 Deploy: https://kristy-user.github.io/store/
